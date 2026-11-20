@@ -123,6 +123,37 @@ header{display:flex;flex-direction:column;gap:10px}
 .places a{color:var(--sea);text-decoration:none;border-bottom:1px solid var(--sea-soft)}
 .places a:hover,.places a:focus-visible{border-bottom-color:var(--sea)}
 
+/* calendar */
+.cal{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.cal-month{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:0 2px 4px}
+.cal-month b{font-size:17px}
+.cal-month span{font-size:12px;color:var(--muted)}
+.cal-head,.wk,.bars{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.cal-head span{text-align:center;font-size:12px;color:var(--muted);font-weight:500}
+.cal-head span:first-child{color:var(--c23)}
+.cal-head span:last-child{color:var(--city)}
+.cd{min-height:30px;border-radius:8px;padding:4px 5px;font-size:12px;color:var(--muted);font-family:var(--font-mono);font-variant-numeric:tabular-nums;min-width:0}
+.cd.blank{visibility:hidden}
+.cd.trip{min-height:86px;display:flex;flex-direction:column;gap:3px;color:var(--ink);text-decoration:none;border-top:3px solid var(--dc);transition:transform .15s ease}
+a.cd.trip:hover{transform:translateY(-2px)}
+a.cd.trip:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
+.cd.trip.bkk{background:var(--city-soft)}
+.cd.trip.kbv{background:var(--sea-soft)}
+.cd.trip.home{background:var(--bg)}
+.cd .num{font-weight:500}
+.cd .emo{font-size:20px;line-height:1.1;font-family:var(--font-body)}
+.cd .lb{font-size:11px;font-weight:500;line-height:1.25;font-family:var(--font-body);word-break:keep-all}
+.bars{margin-top:-2px}
+.bar{font-size:10.5px;font-weight:500;border-radius:6px;padding:2px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.bar.bkk{background:var(--city-soft);color:var(--city)}
+.bar.kbv{background:var(--sea-soft);color:var(--sea)}
+@media (max-width:520px){.bar .bn{display:none}.bar{text-align:center;padding:2px}}
+.cal-note{font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 14px;padding:4px 2px 0}
+.cal-note i{display:inline-block;width:10px;height:10px;border-radius:3px;vertical-align:-1px;margin-right:4px}
+.day{scroll-margin-top:16px}
+.day:target{border-color:var(--sea);box-shadow:0 0 0 2px var(--sea-soft)}
+@media (prefers-reduced-motion: reduce){a.cd.trip{transition:none}a.cd.trip:hover{transform:none}}
+
 /* checklist + tips */
 .list{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px 16px}
 .check{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line);font-size:14px;cursor:pointer}
@@ -140,19 +171,65 @@ footer{font-size:12px;color:var(--muted)}
 <div class="wrap">
 
 <header>
-  <span class="eyebrow">부부 여행 · 6박 7일</span>
-  <h1>방콕·끄라비 여행</h1>
+  <span class="eyebrow">💑 부부 여행 · 6박 7일</span>
+  <h1>방콕·끄라비 여행 🌴</h1>
   <p class="dates mono">2027.1.18 (월) — 1.24 (일)</p>
   <div class="route">
-    <span class="pill bkk">방콕 돈므앙 1박</span><span class="arrow">→</span>
-    <span class="pill kbv">끄라비 3박</span><span class="arrow">→</span>
-    <span class="pill bkk">방콕 2박</span>
+    <span class="pill bkk">🏙️ 방콕 돈므앙 1박</span><span class="arrow">→</span>
+    <span class="pill kbv">🏝️ 끄라비 3박</span><span class="arrow">→</span>
+    <span class="pill bkk">🏙️ 방콕 2박</span>
   </div>
-  <p class="notice"><strong>1/19는 새벽 5시 전에 일어나야 해요.</strong> 1/18 밤 11시 반쯤 호텔에 도착하고, 다음 날 아침 7시 비행기라 잠을 4~5시간밖에 못 자요. 끄라비 첫날은 쉬는 날로 잡았어요.</p>
+  <p class="notice"><strong>⏰ 1/19는 새벽 5시 전에 일어나야 해요.</strong> 1/18 밤 11시 반쯤 호텔에 도착하고, 다음 날 아침 7시 비행기라 잠을 4~5시간밖에 못 자요. 끄라비 첫날은 쉬는 날로 잡았어요.</p>
 </header>
 
 <section>
-  <div class="sec-head"><h2>항공편</h2><p>모두 현지 시간이에요.</p></div>
+  <div class="sec-head"><h2>📅 여행 달력</h2><p>날짜를 누르면 그날 일정으로 이동해요.</p></div>
+  <div class="cal">
+    <div class="cal-month"><b>2027년 1월</b><span>1/18 출발 · 1/25 귀국</span></div>
+    <div class="cal-head"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div>
+    <div class="wk">
+      <span class="cd blank"></span><span class="cd blank"></span><span class="cd blank"></span><span class="cd blank"></span><span class="cd blank"></span>
+      <span class="cd">1</span><span class="cd">2</span>
+    </div>
+    <div class="wk">
+      <span class="cd">3</span><span class="cd">4</span><span class="cd">5</span><span class="cd">6</span><span class="cd">7</span><span class="cd">8</span><span class="cd">9</span>
+    </div>
+    <div class="wk">
+      <span class="cd">10</span><span class="cd">11</span><span class="cd">12</span><span class="cd">13</span><span class="cd">14</span><span class="cd">15</span><span class="cd">16</span>
+    </div>
+    <div class="wk">
+      <span class="cd">17</span>
+      <a class="cd trip bkk" href="#d18" style="--dc:var(--c18)"><span class="num">18</span><span class="emo">✈️</span><span class="lb">방콕 도착</span></a>
+      <a class="cd trip kbv" href="#d19" style="--dc:var(--c19)"><span class="num">19</span><span class="emo">🏝️</span><span class="lb">끄라비</span></a>
+      <a class="cd trip kbv" href="#d20" style="--dc:var(--c20)"><span class="num">20</span><span class="emo">🚤</span><span class="lb">피피섬</span></a>
+      <a class="cd trip kbv" href="#d21" style="--dc:var(--c21)"><span class="num">21</span><span class="emo">🌅</span><span class="lb">선셋 투어</span></a>
+      <a class="cd trip kbv" href="#d22" style="--dc:var(--c22)"><span class="num">22</span><span class="emo">🏖️</span><span class="lb">비치 → 방콕</span></a>
+      <a class="cd trip bkk" href="#d23" style="--dc:var(--c23)"><span class="num">23</span><span class="emo">🛕</span><span class="lb">방콕 사원</span></a>
+    </div>
+    <div class="bars" aria-label="숙소">
+      <span class="bar bkk" style="grid-column:2" title="12 The Residence">🏨<span class="bn"> 12 Residence</span></span>
+      <span class="bar kbv" style="grid-column:3 / span 2" title="The Tubkaak Krabi Boutique Resort">🏨 텁깩 리조트</span>
+      <span class="bar kbv" style="grid-column:5" title="Eco Inn Cottage by Aonang Hill">🏨<span class="bn"> Eco Inn</span></span>
+      <span class="bar bkk" style="grid-column:6 / span 2" title="방콕 숙소 (예약 전)">🏨 방콕 숙소</span>
+    </div>
+    <div class="wk">
+      <a class="cd trip bkk" href="#d24" style="--dc:var(--c24)"><span class="num">24</span><span class="emo">🛍️</span><span class="lb">시장·출국</span></a>
+      <span class="cd trip home" style="--dc:var(--muted)"><span class="num">25</span><span class="emo">🏠</span><span class="lb">김해 도착</span></span>
+      <span class="cd">26</span><span class="cd">27</span><span class="cd">28</span><span class="cd">29</span><span class="cd">30</span>
+    </div>
+    <div class="wk">
+      <span class="cd">31</span>
+    </div>
+    <div class="cal-note">
+      <span><i style="background:var(--city-soft);border:1px solid var(--city)"></i>방콕</span>
+      <span><i style="background:var(--sea-soft);border:1px solid var(--sea)"></i>끄라비</span>
+      <span>🏨 띠는 그날 밤 묵는 숙소</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>✈️ 항공편</h2><p>모두 현지 시간이에요.</p></div>
   <div class="stays">
     <div class="stay">
       <div class="when"><b>1/18 (월)</b><span class="mono">18:00 → 21:50</span></div>
@@ -174,7 +251,7 @@ footer{font-size:12px;color:var(--muted)}
 </section>
 
 <section>
-  <div class="sec-head"><h2>숙소</h2></div>
+  <div class="sec-head"><h2>🏨 숙소</h2></div>
   <div class="stays">
     <div class="stay">
       <div class="when"><b>1/18 (월)</b>1박</div>
@@ -196,11 +273,11 @@ footer{font-size:12px;color:var(--muted)}
 </section>
 
 <section>
-  <div class="sec-head"><h2>동선 지도</h2><p>위치 비율만 맞춘 개략도예요. 실선은 차, 점선은 배로 이동하는 구간이에요. 장소 이름을 누르면 구글 지도가 열려요.</p></div>
+  <div class="sec-head"><h2>🗺️ 동선 지도</h2><p>위치 비율만 맞춘 개략도예요. 실선은 차, 점선은 배로 이동하는 구간이에요. 장소 이름을 누르면 구글 지도가 열려요.</p></div>
   <div class="maps">
 
     <div class="map-card">
-      <h3>끄라비</h3>
+      <h3>🏝️ 끄라비</h3>
       <svg viewBox="0 0 400 510" role="img" aria-label="끄라비 동선 개략도: 공항에서 텁깩 리조트, 피피섬, 아오낭, 7섬, 라일레이">
         <rect width="400" height="510" class="water"/>
         <polygon class="land" points="90,0 400,0 400,110 310,110 280,100 260,120 240,140 218,155 205,135 190,130 160,110 130,90 128,55 110,30"/>
@@ -254,7 +331,7 @@ footer{font-size:12px;color:var(--muted)}
     </div>
 
     <div class="map-card">
-      <h3>방콕</h3>
+      <h3>🏙️ 방콕</h3>
       <svg viewBox="0 0 400 360" role="img" aria-label="방콕 동선 개략도: 수완나품 공항, 돈므앙 숙소, 수쿰윗, 왕궁, 아이콘시암, 짜뚜짝">
         <rect width="400" height="360" class="land"/>
         <path class="river" d="M58,0 C55,60 60,100 58,108 C52,170 45,220 47,240 C55,265 65,275 90,285 C110,295 120,300 117,310 C110,330 95,345 93,360"/>
@@ -306,13 +383,13 @@ footer{font-size:12px;color:var(--muted)}
 </section>
 
 <section>
-  <div class="sec-head"><h2>날짜별 일정</h2><p>끄라비에서는 투어를 하루에 하나씩만 넣어서 쉬는 시간을 남겼어요.</p></div>
+  <div class="sec-head"><h2>🗓️ 날짜별 일정</h2><p>끄라비에서는 투어를 하루에 하나씩만 넣어서 쉬는 시간을 남겼어요.</p></div>
   <div class="days">
 
-    <article class="day">
+    <article class="day" id="d18">
       <div class="day-top">
         <div class="date bkk"><span class="d">18</span><span class="w">1월 · 월</span></div>
-        <div class="day-title"><h3>방콕 도착</h3><span class="sub">돈므앙 공항 근처에서 짧게 자기</span></div>
+        <div class="day-title"><h3>✈️ 방콕 도착</h3><span class="sub">돈므앙 공항 근처에서 짧게 자기</span></div>
       </div>
       <ul class="tl">
         <li><span class="t">18:00</span><span class="x">김해 출발 (에어부산 BX545)<span class="note">기내에서 저녁을 먹어두세요. 호텔 도착이 늦어요.</span></span></li>
@@ -323,10 +400,10 @@ footer{font-size:12px;color:var(--muted)}
       <p class="sleep">숙소 <b>12 The Residence Hotel &amp; Apartment</b></p>
     </article>
 
-    <article class="day">
+    <article class="day" id="d19">
       <div class="day-top">
         <div class="date kbv"><span class="d">19</span><span class="w">1월 · 화</span></div>
-        <div class="day-title"><h3>끄라비로 이동</h3><span class="sub">잠이 부족한 날이라 리조트에서 푹 쉬기</span></div>
+        <div class="day-title"><h3>🏝️ 끄라비로 이동</h3><span class="sub">잠이 부족한 날이라 리조트에서 푹 쉬기</span></div>
       </div>
       <ul class="tl">
         <li><span class="t">05:00</span><span class="x">기상, 체크아웃</span></li>
@@ -341,10 +418,10 @@ footer{font-size:12px;color:var(--muted)}
       <p class="sleep">숙소 <b>The Tubkaak Krabi Boutique Resort</b> (1박째)</p>
     </article>
 
-    <article class="day">
+    <article class="day" id="d20">
       <div class="day-top">
         <div class="date kbv"><span class="d">20</span><span class="w">1월 · 수</span></div>
-        <div class="day-title"><h3>피피섬 투어</h3><span class="sub">끄라비 대표 투어, 하루 종일</span></div>
+        <div class="day-title"><h3>🚤 피피섬 투어</h3><span class="sub">끄라비 대표 투어, 하루 종일</span></div>
       </div>
       <ul class="tl">
         <li><span class="t">07:30</span><span class="x">리조트 픽업<span class="note">텁깩은 픽업 추가 요금이 붙는 투어가 있어요. 예약할 때 꼭 확인하세요.</span></span></li>
@@ -355,10 +432,10 @@ footer{font-size:12px;color:var(--muted)}
       <p class="sleep">숙소 <b>The Tubkaak Krabi Boutique Resort</b> (2박째)</p>
     </article>
 
-    <article class="day">
+    <article class="day" id="d21">
       <div class="day-top">
         <div class="date kbv"><span class="d">21</span><span class="w">1월 · 목</span></div>
-        <div class="day-title"><h3>아오낭 이동 + 선셋 투어</h3><span class="sub">오전은 느긋하게, 오후에 섬 투어</span></div>
+        <div class="day-title"><h3>🌅 아오낭 이동 + 선셋 투어</h3><span class="sub">오전은 느긋하게, 오후에 섬 투어</span></div>
       </div>
       <ul class="tl">
         <li><span class="t">오전</span><span class="x">늦잠, 조식, 마지막 리조트 수영</span></li>
@@ -369,10 +446,10 @@ footer{font-size:12px;color:var(--muted)}
       <p class="sleep">숙소 <b>Eco Inn Cottage by Aonang Hill</b></p>
     </article>
 
-    <article class="day">
+    <article class="day" id="d22">
       <div class="day-top">
         <div class="date bkk"><span class="d">22</span><span class="w">1월 · 금</span></div>
-        <div class="day-title"><h3>라일레이 → 방콕</h3><span class="sub">저녁 비행기라 낮에 라일레이를 다녀올 수 있어요</span></div>
+        <div class="day-title"><h3>🏖️ 라일레이 → 방콕</h3><span class="sub">저녁 비행기라 낮에 라일레이를 다녀올 수 있어요</span></div>
       </div>
       <ul class="tl">
         <li><span class="t">08:30</span><span class="x">조식, 체크아웃하고 짐은 숙소에 맡기기</span></li>
@@ -385,10 +462,10 @@ footer{font-size:12px;color:var(--muted)}
       <p class="sleep">숙소 <b>방콕 숙소 (예약 전)</b> (1박째)</p>
     </article>
 
-    <article class="day">
+    <article class="day" id="d23">
       <div class="day-top">
         <div class="date bkk"><span class="d">23</span><span class="w">1월 · 토</span></div>
-        <div class="day-title"><h3>방콕 시내 하루</h3><span class="sub">사원 → 강변 → 디너크루즈나 루프탑</span></div>
+        <div class="day-title"><h3>🛕 방콕 시내 하루</h3><span class="sub">사원 → 강변 → 디너크루즈나 루프탑</span></div>
       </div>
       <ul class="tl">
         <li><span class="t">08:30</span><span class="x">왕궁<span class="note">어깨와 무릎을 가리는 옷을 입어야 들어갈 수 있어요. 오후 3시 반쯤 입장이 끝나요.</span></span></li>
@@ -400,10 +477,10 @@ footer{font-size:12px;color:var(--muted)}
       <p class="sleep">숙소 <b>방콕 숙소 (예약 전)</b> (2박째)</p>
     </article>
 
-    <article class="day">
+    <article class="day" id="d24">
       <div class="day-top">
         <div class="date bkk"><span class="d">24</span><span class="w">1월 · 일</span></div>
-        <div class="day-title"><h3>주말시장 → 출국</h3><span class="sub">밤 비행기라 하루를 꽉 채워 쓸 수 있어요</span></div>
+        <div class="day-title"><h3>🛍️ 주말시장 → 출국</h3><span class="sub">밤 비행기라 하루를 꽉 채워 쓸 수 있어요</span></div>
       </div>
       <ul class="tl">
         <li><span class="t">09:00</span><span class="x">짜뚜짝 주말시장 (토·일만, 아침이 덜 더워요)<span class="note">숙소 체크아웃 전에 다녀오거나, 체크아웃하고 짐을 맡긴 뒤 가세요.</span></span></li>
@@ -420,35 +497,35 @@ footer{font-size:12px;color:var(--muted)}
 </section>
 
 <section>
-  <div class="sec-head"><h2>끄라비 투어</h2><p>일정에 넣은 두 개가 끄라비에서 꼭 해야 할 투어예요. 나머지는 대안이나 다음 기회용이에요.</p></div>
+  <div class="sec-head"><h2>🚤 끄라비 투어</h2><p>일정에 넣은 두 개가 끄라비에서 꼭 해야 할 투어예요. 나머지는 대안이나 다음 기회용이에요.</p></div>
   <div class="tours">
     <div class="tourc must">
-      <div class="row"><h3>피피섬 + 마야베이</h3><span class="tag-plan">1/20 일정</span></div>
+      <div class="row"><h3>🐠 피피섬 + 마야베이</h3><span class="tag-plan">1/20 일정</span></div>
       <p>영화 촬영지로 유명한 마야베이와 에메랄드빛 피레 라군. 끄라비 투어 중 가장 유명해요.</p>
       <div class="facts"><span>스피드보트 · 하루 종일 (약 8~9시간)</span><span>약 5.4만 원 / 1인 · 국립공원 입장료 별도</span><span>마야베이는 수영 금지, 해변 산책만 가능</span></div>
     </div>
     <div class="tourc must">
-      <div class="row"><h3>7섬 선셋 + 야광 플랑크톤</h3><span class="tag-plan">1/21 일정</span></div>
+      <div class="row"><h3>🌅 7섬 선셋 + 야광 플랑크톤</h3><span class="tag-plan">1/21 일정</span></div>
       <p>4섬 투어 코스에 바다 노을과 밤바다의 야광 플랑크톤이 더해져요. 부부 여행에 특히 좋아요.</p>
       <div class="facts"><span>롱테일 또는 스피드보트 · 오후~밤 (약 6~7시간)</span><span>약 4.8만 원 / 1인 · BBQ 저녁 포함</span></div>
     </div>
     <div class="tourc">
-      <div class="row"><h3>홍섬 투어</h3><span class="tag-opt">대안</span></div>
+      <div class="row"><h3>🛶 홍섬 투어</h3><span class="tag-opt">대안</span></div>
       <p>절벽으로 둘러싸인 라군에서 카약을 타요. 텁깩에서 가까워서 피피섬보다 이동이 짧아요.</p>
       <div class="facts"><span>반나절~하루 · 약 3.5만 원 / 1인</span></div>
     </div>
     <div class="tourc">
-      <div class="row"><h3>4섬 투어</h3><span class="tag-opt">대안</span></div>
+      <div class="row"><h3>🐔 4섬 투어</h3><span class="tag-opt">대안</span></div>
       <p>프라낭 동굴 해변, 치킨섬, 텁섬, 포다섬. 7섬 선셋 투어와 코스가 겹쳐서 둘 중 하나만 하면 돼요.</p>
       <div class="facts"><span>반나절~하루 · 약 2.7만 원 / 1인</span></div>
     </div>
     <div class="tourc">
-      <div class="row"><h3>라일레이 반나절</h3><span class="tag-plan">1/22 일정</span></div>
+      <div class="row"><h3>🧗 라일레이 반나절</h3><span class="tag-plan">1/22 일정</span></div>
       <p>차가 다니지 않는 절벽 속 해변이에요. 아오낭 해변에서 롱테일보트를 타고 직접 가면 돼요.</p>
       <div class="facts"><span>투어 예약 없이 가능 · 보트 왕복 1인 수백 바트</span></div>
     </div>
     <div class="tourc">
-      <div class="row"><h3>정글 투어</h3><span class="tag-opt">다음 기회</span></div>
+      <div class="row"><h3>🌿 정글 투어</h3><span class="tag-opt">다음 기회</span></div>
       <p>에메랄드 풀, 온천, 타이거 케이브 사원(계단 1,200여 개). 이번 일정에는 시간이 부족해요.</p>
       <div class="facts"><span>하루 종일</span></div>
     </div>
@@ -457,7 +534,7 @@ footer{font-size:12px;color:var(--muted)}
 </section>
 
 <section>
-  <div class="sec-head"><h2>예약 체크리스트</h2><p>체크한 항목은 이 기기에만 저장돼요.</p></div>
+  <div class="sec-head"><h2>✅ 예약 체크리스트</h2><p>체크한 항목은 이 기기에만 저장돼요.</p></div>
   <div class="list" id="checklist">
     <label class="check"><input type="checkbox" id="c-bag"><span>에어아시아 위탁 수하물 포함 여부 확인 (없으면 미리 추가하는 게 싸요)</span></label>
     <label class="check"><input type="checkbox" id="c-dawn"><span>1/19 새벽 5시 반 공항 이동편 (호텔 셔틀이나 택시)</span></label>
@@ -471,17 +548,17 @@ footer{font-size:12px;color:var(--muted)}
 </section>
 
 <section>
-  <div class="sec-head"><h2>챙기면 좋은 것</h2></div>
+  <div class="sec-head"><h2>🎒 챙기면 좋은 것</h2></div>
   <ul class="tips">
-    <li>스피드보트는 많이 흔들려요. 멀미약을 투어 30분 전에 먹으세요.</li>
-    <li>방수 파우치, 아쿠아슈즈, 래시가드, 산호에 안전한 선크림</li>
-    <li>왕궁과 사원에 갈 날은 긴 바지나 긴 치마</li>
-    <li>그랩(Grab) 앱 설치. 끄라비와 방콕 모두 이동이 편해요.</li>
-    <li>태국 eSIM이나 유심</li>
+    <li>💊 스피드보트는 많이 흔들려요. 멀미약을 투어 30분 전에 먹으세요.</li>
+    <li>🩴 방수 파우치, 아쿠아슈즈, 래시가드, 산호에 안전한 선크림</li>
+    <li>👖 왕궁과 사원에 갈 날은 긴 바지나 긴 치마</li>
+    <li>🚕 그랩(Grab) 앱 설치. 끄라비와 방콕 모두 이동이 편해요.</li>
+    <li>📶 태국 eSIM이나 유심</li>
   </ul>
 </section>
 
-<footer>숙소 위치와 투어 정보는 2026년 11월에 확인했어요. 투어 일정과 마야베이 입장 규정은 바뀔 수 있으니 예약할 때 다시 확인하세요.</footer>
+<footer>🌺 즐거운 여행 되세요! 숙소 위치와 투어 정보는 2026년 11월에 확인했어요. 투어 일정과 마야베이 입장 규정은 바뀔 수 있으니 예약할 때 다시 확인하세요.</footer>
 
 </div>
 
