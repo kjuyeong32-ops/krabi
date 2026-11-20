@@ -184,6 +184,13 @@ a.cd.trip:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
 .check-day{font-size:13px;font-weight:700;color:var(--sea);padding:14px 0 2px;border-top:1px solid var(--line)}
 .check-day:first-child{border-top:0;padding-top:8px}
 .check-day + .check{border-top:0}
+.cl{padding:2px 14px}
+.cl-row{display:grid;grid-template-columns:62px 1fr;gap:10px;padding:11px 0;border-top:1px solid var(--line);align-items:start}
+.cl-row:first-child{border-top:0}
+.cl-d{font-size:13px;font-weight:700;color:var(--sea);font-variant-numeric:tabular-nums;padding-top:1px;white-space:nowrap}
+.cl-i{display:flex;flex-direction:column;gap:8px;min-width:0}
+.cl .check{padding:0;border-top:0;font-size:14.5px;align-items:center}
+.cl .check input{margin-top:0}
 .check input{margin-top:4px;width:18px;height:18px;accent-color:var(--sea);flex:0 0 auto}
 .check input:checked + span{color:var(--muted);text-decoration:line-through}
 .check.done{cursor:default;align-items:center}
@@ -584,26 +591,28 @@ footer{font-size:12px;color:var(--muted)}
 </section>
 
 <section>
-  <div class="sec-head"><h2>✅ 체크리스트</h2><p>체크 표시는 이 기기에만 저장</p></div>
-  <div class="list" id="checklist">
-    <div class="check-day">🧳 출발 전</div>
-    <label class="check"><input type="checkbox" id="c-bag"><span>에어아시아 위탁 수하물 포함 여부 확인 (1/19, 1/22 국내선 · 없으면 미리 추가가 저렴)</span></label>
-    <label class="check"><input type="checkbox" id="c-cash"><span>바트 현금 준비 (국립공원 입장료, 롱테일보트)</span></label>
-    <div class="check-day">✈️ 1/18 (월) 방콕 도착</div>
-    <label class="check"><input type="checkbox" id="c-dawn"><span>12 The Residence 체크인할 때 1/19 새벽 5시 반 공항 이동편 요청 (호텔 셔틀이나 택시)</span></label>
-    <div class="check-day">🛶 1/19 (화) 끄라비 · 홍섬</div>
-    <label class="check"><input type="checkbox" id="c-transfer"><span>끄라비 공항 → 텁깩 리조트 이동편</span></label>
-    <label class="check"><input type="checkbox" id="c-early"><span>텁깩 리조트 얼리 체크인 요청</span></label>
-    <label class="check"><input type="checkbox" id="c-tour-sunset"><span>홍섬 프라이빗 롱테일 리조트에 예약 (13:30 출발)</span></label>
-    <div class="check-day">🚤 1/20 (수) 피피섬</div>
-    <label class="check"><input type="checkbox" id="c-tour-phiphi"><span>피피섬 투어 예약 (텁깩 픽업 가능한지 확인)</span></label>
-    <div class="check-day">🏖️ 1/21 (목) 프라낭 비치</div>
-    <label class="check done"><input type="checkbox" id="c-raitalay" checked disabled><span>라이탈레이 테라스 점심 메일 문의 (답장 대기)</span><b class="done-tag">문의 완료</b></label>
-    <label class="check"><input type="checkbox" id="c-laelay"><span>래레이 그릴 저녁 예약 (19:30)</span></label>
-    <div class="check-day">🏙️ 1/22 (금) 방콕</div>
-    <label class="check done"><input type="checkbox" id="c-hotel-bkk" checked disabled><span>그란데 센터 포인트 룸피니 (1/22~24, 2박)</span><b class="done-tag">예약 완료</b></label>
-    <div class="check-day">🛕 1/23 (토) 방콕</div>
-    <label class="check"><input type="checkbox" id="c-sala"><span>살라 라따나꼬신 저녁 예약 (17:30, 2명, 창가·왓아룬 뷰 자리 요청)</span></label>
+  <div class="sec-head"><h2>✅ 체크리스트</h2></div>
+  <div class="list cl" id="checklist">
+    <div class="cl-row"><div class="cl-d">출발 전</div><div class="cl-i">
+      <label class="check"><input type="checkbox" id="c-cash"><span>💵 바트 현금 준비</span></label>
+    </div></div>
+    <div class="cl-row"><div class="cl-d">1/18 월</div><div class="cl-i">
+      <label class="check"><input type="checkbox" id="c-dawn"><span>🚕 새벽 공항 이동 요청</span></label>
+    </div></div>
+    <div class="cl-row"><div class="cl-d">1/19 화</div><div class="cl-i">
+      <label class="check"><input type="checkbox" id="c-transfer"><span>🚗 공항 → 텁깩 이동편</span></label>
+      <label class="check"><input type="checkbox" id="c-early"><span>🛏️ 텁깩 얼리 체크인 요청</span></label>
+      <label class="check"><input type="checkbox" id="c-tour-sunset"><span>🛶 홍섬 롱테일 예약</span></label>
+    </div></div>
+    <div class="cl-row"><div class="cl-d">1/20 수</div><div class="cl-i">
+      <label class="check"><input type="checkbox" id="c-tour-phiphi"><span>🚤 피피섬 투어 예약</span></label>
+    </div></div>
+    <div class="cl-row"><div class="cl-d">1/21 목</div><div class="cl-i">
+      <label class="check"><input type="checkbox" id="c-laelay"><span>🍷 래레이 그릴 예약</span></label>
+    </div></div>
+    <div class="cl-row"><div class="cl-d">1/23 토</div><div class="cl-i">
+      <label class="check"><input type="checkbox" id="c-sala"><span>🌇 살라 라따나꼬신 예약</span></label>
+    </div></div>
   </div>
 </section>
 
