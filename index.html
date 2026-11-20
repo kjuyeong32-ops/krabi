@@ -7,28 +7,18 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
 <style>
-/* Layout: one narrow travel column, read on a phone — stay strip, day-by-day timeline, tour cards, checklist */
+/* Tropical theme: warm sand page, ocean teal and sunset coral, sunset hero. One bright look on every device. */
 :root{
-  --bg:#F2F6F5; --surface:#FFFFFF; --ink:#13302D; --muted:#5A6F6C; --line:#D5E0DD;
-  --sea:#0D7A72; --sea-soft:#DDF0EC; --city:#4A58A3; --city-soft:#E3E6F6;
-  --tour:#B86E0C; --tour-soft:#FBEBD3; --warn-bg:#FFF6E0; --warn-ink:#7A5200;
-  --land:#E4ECE2; --water:#CDE3E7; --river:#8DBFCA;
-  --c18:#8E44AD; --c19:#4A58A3; --c20:#D9480F; --c21:#0D7A72; --c22:#A87C00; --c23:#C2185B; --c24:#2E7D32;
+  --bg:#FFF9F1; --surface:#FFFFFF; --ink:#15323A; --muted:#58707A; --line:#E9E2D5;
+  --sea:#0A8A8F; --sea-soft:#DDF4F2; --city:#4A5DB5; --city-soft:#E7EAFA;
+  --tour:#E35D3F; --tour-soft:#FFE7DF; --warn-bg:#FFF0D4; --warn-ink:#7A4800;
+  --land:#F5ECDA; --water:#BEE6EE; --river:#86CADC;
+  --c18:#9A55C9; --c19:#4A6AC8; --c20:#E8643C; --c21:#0E9A8E; --c22:#C78F00; --c23:#D94A7A; --c24:#3E9A55;
+  --sun1:#FF9E7A; --sun2:#FFC98B; --sun3:#FFE7B3; --sky:#BFEAF0;
   --font-body:"IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
   --font-mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  color-scheme:light;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0E1918; --surface:#152524; --ink:#E3EEEC; --muted:#93A8A4; --line:#284039;
-  --sea:#43B9AD; --sea-soft:#163A36; --city:#97A2E6; --city-soft:#232A4D;
-  --tour:#EBA845; --tour-soft:#3A2A10; --warn-bg:#33290F; --warn-ink:#F0CF84;
-  --land:#1D2E2A; --water:#0F2A31; --river:#2F6672;
-  --c18:#C690E0; --c19:#97A2E6; --c20:#FF8A50; --c21:#43B9AD; --c22:#E3B53C; --c23:#F06292; --c24:#7BC67E; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0E1918; --surface:#152524; --ink:#E3EEEC; --muted:#93A8A4; --line:#284039;
-  --sea:#43B9AD; --sea-soft:#163A36; --city:#97A2E6; --city-soft:#232A4D;
-  --tour:#EBA845; --tour-soft:#3A2A10; --warn-bg:#33290F; --warn-ink:#F0CF84;
-  --land:#1D2E2A; --water:#0F2A31; --river:#2F6672;
-  --c18:#C690E0; --c19:#97A2E6; --c20:#FF8A50; --c21:#43B9AD; --c22:#E3B53C; --c23:#F06292; --c24:#7BC67E; color-scheme:dark}
 
 body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.65;
   padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
@@ -204,6 +194,45 @@ a.cd.trip:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
 .check input:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
 .tips{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:14px}
 footer{font-size:12px;color:var(--muted)}
+
+/* ---------- tropical look ---------- */
+body{font-size:15.5px}
+.wrap{gap:40px}
+h2{font-size:22px;display:flex;align-items:center;gap:8px}
+h2::after{content:"";flex:0 0 36px;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--tour),var(--sun2));margin-left:4px}
+header{
+  border-radius:24px;padding:26px 20px 64px;position:relative;overflow:hidden;
+  background:linear-gradient(180deg,var(--sun1) 0%,var(--sun2) 38%,var(--sun3) 68%,var(--sky) 100%);
+  box-shadow:0 14px 30px -22px rgba(227,93,63,.6);
+}
+header::before{content:"";position:absolute;right:22px;top:20px;width:64px;height:64px;border-radius:50%;
+  background:radial-gradient(circle,#FFF6D8 0%,#FFE08A 55%,rgba(255,224,138,0) 72%);opacity:.95}
+header::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:46px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 46' preserveAspectRatio='none'%3E%3Cpath d='M0 18 C50 4 100 30 150 18 S250 4 300 18 S370 30 400 16 L400 46 L0 46Z' fill='%2389D3DD'/%3E%3Cpath d='M0 30 C60 18 110 40 170 28 S280 18 330 30 S380 38 400 30 L400 46 L0 46Z' fill='%23FFF9F1'/%3E%3C/svg%3E") bottom/100% 100% no-repeat}
+header > *{position:relative;z-index:1}
+header h1{color:#3A1E12}
+.eyebrow{color:#5A2E1C;font-weight:700;font-size:13px;letter-spacing:.02em}
+.dates{color:#6A3A24}
+.route .pill{background:rgba(255,255,255,.78);box-shadow:0 1px 0 rgba(0,0,0,.04)}
+.route .pill.kbv{color:var(--sea)} .route .pill.bkk{color:var(--city)}
+.arrow{color:#7A4A30}
+header .notice{background:rgba(255,255,255,.85);color:var(--warn-ink);border:0}
+
+.cal,.stays,.day,.map-card,.tourc,.list,.jjc{
+  border:1px solid var(--line);border-radius:18px;background:var(--surface);
+  box-shadow:0 1px 0 rgba(21,50,58,.03),0 12px 26px -20px rgba(10,138,143,.45);
+}
+.day{border-left:5px solid var(--sea-soft)}
+.date{border-radius:14px}
+.tl .t{color:var(--sea);font-weight:500}
+.tl li.hl .x::before{content:"투어";background:var(--tour);color:#fff}
+.tourc.must{border-color:var(--line);border-top:4px solid var(--tour)}
+.tag-plan{background:var(--tour-soft);border-radius:999px;padding:1px 10px}
+.cd.trip{border-radius:12px}
+.bar{border-radius:999px}
+.cl .check input{accent-color:var(--tour)}
+.jjc img{border-radius:0}
+footer{text-align:center}
 </style>
 <style>body{margin:0}[hidden]{display:none!important}svg{max-width:100%}img{max-width:100%}</style>
 </head>
