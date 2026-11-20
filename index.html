@@ -173,6 +173,21 @@ a.cd.trip:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
 .jjl b a{color:var(--sea);text-decoration:underline;text-underline-offset:3px}
 .jjl b a::after{content:" 📍";font-size:12px}
 
+/* d-day */
+.dday{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.dd-n{font-family:var(--font-mono);font-size:clamp(34px,10vw,46px);font-weight:500;line-height:1;color:#fff;background:var(--tour);border-radius:16px;padding:8px 14px;box-shadow:0 8px 18px -10px rgba(227,93,63,.8);font-variant-numeric:tabular-nums}
+.dd-t:empty{display:none}
+.dd-t{font-size:16px;font-weight:700;color:#5A2E1C}
+ (prefers-reduced-motion: no-preference){.dd-n{animation:ddpop 2.4s ease-in-out infinite}}
+@keyframes ddpop{0%,100%{transform:rotate(-2deg) scale(1)}50%{transform:rotate(1deg) scale(1.04)}}
+
+/* weather */
+.wx{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.wxc{background:rgba(255,255,255,.8);border-radius:14px;padding:8px 12px;display:flex;flex-direction:column;gap:1px;min-width:0}
+.wxn{font-size:12.5px;font-weight:700;color:#5A2E1C}
+.wxv{font-size:19px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.wxs{font-size:11.5px;color:var(--muted)}
+
 /* checklist + tips */
 .list{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px 16px}
 .check{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line);font-size:14px;cursor:pointer}
@@ -242,12 +257,17 @@ footer{text-align:center}
 
 <header>
   <span class="eyebrow">💑 한이와 주영이의 6박 7일 방콕·끄라비 여행</span>
+  <div class="dday" id="dday"><span class="dd-n">D-59</span><span class="dd-t"></span></div>
   <h1>방콕·끄라비 여행 🌴</h1>
   <p class="dates mono">2027.1.18 (월) — 1.24 (일)</p>
   <div class="route">
     <span class="pill bkk">🏙️ 방콕 돈므앙 1박</span><span class="arrow">→</span>
     <span class="pill kbv">🏝️ 끄라비 3박</span><span class="arrow">→</span>
     <span class="pill bkk">🏙️ 방콕 2박</span>
+  </div>
+  <div class="wx" id="wx">
+    <div class="wxc" data-c="bkk"><span class="wxn">🏙️ 방콕</span><span class="wxv">☀️ 32° / 22°</span><span class="wxs">1월 평균 · 비 거의 없음</span></div>
+    <div class="wxc" data-c="kbi"><span class="wxn">🏝️ 끄라비</span><span class="wxv">🌤️ 31° / 23°</span><span class="wxs">1월 평균 · 가끔 짧은 소나기</span></div>
   </div>
   <p class="notice"><strong>⏰ 1/19 새벽 5시 기상 주의!</strong> 1/18 밤 11시 반 호텔 도착, 다음 날 아침 7시 비행기 → 수면 4~5시간뿐. 끄라비 첫날은 휴식.</p>
 </header>
@@ -707,6 +727,44 @@ footer{text-align:center}
     var ci=document.createElementNS(NS,'circle'); ci.setAttribute('cx',x); ci.setAttribute('cy',y); ci.setAttribute('r',8); ci.style.fill='var(--c'+c+')';
     var t=document.createElementNS(NS,'text'); t.setAttribute('x',x); t.setAttribute('y',y+3.5); t.setAttribute('text-anchor','middle'); t.textContent=p.getAttribute('data-n');
     g.appendChild(ci); g.appendChild(t); svg.appendChild(g);
+  });
+})();
+</script>
+<script>
+/* Top of page: D-day counter and live weather.
+   Both run on every visit, so they update themselves each day. Weather comes from Open-Meteo (free, no key);
+   the forecast reaches 16 days ahead, so until then the January averages written in the page stay. */
+(function(){
+  /* D-day, counted in Korea time from the 1/18 departure */
+  var el=document.getElementById('dday');
+  if(el){
+    var now=new Date(Date.now()+9*3600e3); var today=Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate());
+    var start=Date.UTC(2027,0,18), end=Date.UTC(2027,0,24), day=86400e3;
+    var n=Math.round((start-today)/day), N=el.querySelector('.dd-n'), T=el.querySelector('.dd-t');
+    if(n>0){ N.textContent='D-'+n; T.textContent=n===1?'내일 출발':''; }
+    else if(today<=end){ N.textContent='D-DAY'; T.textContent=n===0?'오늘 출발':'여행 '+(1-n)+'일째'; }
+    else { N.textContent='💛'; T.textContent=''; }
+  }
+  /* weather */
+  var TRIP={bkk:['2027-01-18','2027-01-23','2027-01-24'], kbi:['2027-01-19','2027-01-20','2027-01-21','2027-01-22']};
+  var LOC={bkk:[13.75,100.50],kbi:[8.03,98.83]};
+  var ICON=function(c){ if(c===0)return'☀️'; if(c<=2)return'🌤️'; if(c===3)return'☁️'; if(c===45||c===48)return'🌫️';
+    if(c>=95)return'⛈️'; if((c>=61&&c<=67)||(c>=80&&c<=82))return'🌧️'; if(c>=51&&c<=57)return'🌦️'; return'🌤️'; };
+  Object.keys(LOC).forEach(function(city){
+    var p=LOC[city];
+    fetch('https://api.open-meteo.com/v1/forecast?latitude='+p[0]+'&longitude='+p[1]+
+      '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FBangkok&forecast_days=16')
+    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+    .then(function(j){
+      var d=j.daily, days=[];
+      d.time.forEach(function(t,i){ if(TRIP[city].indexOf(t)>-1) days.push({c:d.weather_code[i],hi:Math.round(d.temperature_2m_max[i]),lo:Math.round(d.temperature_2m_min[i]),p:d.precipitation_probability_max[i]}); });
+      if(!days.length) return;
+      var box=document.querySelector('.wxc[data-c="'+city+'"]');
+      var hi=Math.max.apply(null,days.map(function(x){return x.hi;})), lo=Math.min.apply(null,days.map(function(x){return x.lo;}));
+      var rain=Math.max.apply(null,days.map(function(x){return x.p||0;}));
+      box.querySelector('.wxv').textContent=ICON(days[0].c)+' '+hi+'° / '+lo+'°';
+      box.querySelector('.wxs').textContent='📡 여행 날 예보 · 💧'+rain+'% · 매일 업데이트';
+    }).catch(function(){});
   });
 })();
 </script>
