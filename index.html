@@ -89,8 +89,8 @@ header{display:flex;flex-direction:column;gap:10px}
 .sleep b{color:var(--ink);font-weight:500}
 
 /* tours */
-.tours{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-@media (max-width:560px){.tours{grid-template-columns:1fr}}
+.tours{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:640px){.tours{grid-template-columns:1fr}}
 .tourc{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;min-width:0}
 .tourc.must{border-color:var(--tour)}
 .tourc .row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
@@ -218,7 +218,7 @@ footer{font-size:12px;color:var(--muted)}
 </header>
 
 <section>
-  <div class="sec-head"><h2>📅 여행 달력</h2><p>날짜 누르면 그날 일정으로 이동</p></div>
+  <div class="sec-head"><h2>📅 여행 달력</h2></div>
   <div class="cal">
     <div class="cal-month"><b>2027년 1월</b><span>1/18 출발 · 1/25 귀국</span></div>
     <div class="cal-head"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div>
@@ -264,7 +264,7 @@ footer{font-size:12px;color:var(--muted)}
 </section>
 
 <section>
-  <div class="sec-head"><h2>✈️ 항공편</h2><p>모두 현지 시간</p></div>
+  <div class="sec-head"><h2>✈️ 항공편</h2></div>
   <div class="stays">
     <div class="stay">
       <div class="when"><b>1/18 (월)</b><span class="mono">18:00 → 21:50</span></div>
@@ -302,7 +302,7 @@ footer{font-size:12px;color:var(--muted)}
     </div>
     <div class="stay">
       <div class="when"><b>1/22 – 1/24</b>2박</div>
-      <div><div class="name">Grande Centre Point Lumpini Bangkok</div><div class="meta">방콕 룸피니 · 룸피니 공원 근처 · MRT 룸피니역 이용 · ✅ 예약 완료</div></div>
+      <div><div class="name">Grande Centre Point Lumpini Bangkok</div><div class="meta">방콕 룸피니 · 룸피니 공원 근처 · MRT 룸피니역 이용</div></div>
     </div>
   </div>
 </section>
@@ -325,8 +325,6 @@ footer{font-size:12px;color:var(--muted)}
         <rect width="400" height="510" class="water"/>
         <polygon class="land" points="90,0 400,0 400,110 310,110 280,100 260,120 240,140 218,155 205,135 190,130 160,110 130,90 128,55 110,30"/>
         <ellipse class="island" cx="53" cy="82" rx="7" ry="5"/>
-        <circle class="island" cx="188" cy="190" r="4"/>
-        <circle class="island" cx="189" cy="207" r="3"/>
         <ellipse class="island" cx="158" cy="419" rx="10" ry="15"/>
         <ellipse class="island" cx="146" cy="482" rx="5" ry="9"/>
         <text class="sea" x="40" y="300">안다만해</text>
@@ -353,7 +351,6 @@ footer{font-size:12px;color:var(--muted)}
         <text class="m" x="168" y="136" text-anchor="end">노파랏 타라 선착장</text>
         <text x="227" y="160">라일레이</text>
         <text x="53" y="102" text-anchor="middle">홍섬</text>
-        <text x="198" y="202">포다섬·치킨섬</text>
         <text x="173" y="423">피피섬</text>
         <text x="157" y="487">마야베이</text>
       </svg>
@@ -374,7 +371,6 @@ footer{font-size:12px;color:var(--muted)}
         <a href="https://www.google.com/maps/search/?api=1&amp;query=Raitalay+Terrace+Rayavadee" target="_blank" rel="noopener">라이탈레이 테라스</a>
         <a href="https://www.google.com/maps/search/?api=1&amp;query=Lae+Lay+Grill+Ao+Nang" target="_blank" rel="noopener">래레이 그릴</a>
         <a href="https://www.google.com/maps/search/?api=1&amp;query=Maya+Bay+Phi+Phi" target="_blank" rel="noopener">마야베이</a>
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Poda+Island+Krabi" target="_blank" rel="noopener">포다섬</a>
       </div>
     </div>
 
@@ -438,7 +434,7 @@ footer{font-size:12px;color:var(--muted)}
 </section>
 
 <section>
-  <div class="sec-head"><h2>🗓️ 날짜별 일정</h2><p>끄라비 투어는 하루 하나씩만, 쉬는 시간 확보</p></div>
+  <div class="sec-head"><h2>🗓️ 날짜별 일정</h2></div>
   <div class="days">
 
     <article class="day" id="d18">
@@ -514,7 +510,7 @@ footer{font-size:12px;color:var(--muted)}
       </div>
       <ul class="tl">
         <li><span class="t">09:00</span><span class="x">늦잠, 조식, 체크아웃하고 짐은 숙소에 맡기기</span></li>
-        <li><span class="t">10:00</span><span class="x">아오낭 해변 산책, 카페, 기념품 쇼핑<span class="note">체력 남으면 4섬 반나절 투어(오전 출발, 오후 초 복귀)도 가능</span></span></li>
+        <li><span class="t">10:00</span><span class="x">아오낭 해변 산책, 카페, 기념품 쇼핑</span></li>
         <li><span class="t">15:00</span><span class="x">마사지 받고 샤워하기<span class="note">해변 앞 마사지 숍 많음 · 비행기 타기 전 개운하게</span></span></li>
         <li><span class="t">17:15</span><span class="x">숙소에서 짐 찾기 → 끄라비 공항, 차로 약 30~40분</span></li>
         <li><span class="t">19:45</span><span class="x">끄라비 출발 (타이 에어아시아 FD3228) → 21:10 돈므앙 도착</span></li>
@@ -559,32 +555,22 @@ footer{font-size:12px;color:var(--muted)}
 </section>
 
 <section>
-  <div class="sec-head"><h2>🚤 끄라비 투어</h2><p>일정에 넣은 투어가 필수 코스 · 나머지는 대안이나 다음 기회</p></div>
+  <div class="sec-head"><h2>🚤 끄라비 투어</h2></div>
   <div class="tours">
-    <div class="tourc must">
-      <div class="row"><h3>🐠 피피섬 + 마야베이</h3><span class="tag-plan">1/20 일정</span></div>
-      <p>영화 촬영지 마야베이 + 에메랄드빛 피레 라군 · 끄라비 대표 투어</p>
-      <div class="facts"><span>스피드보트 · 하루 종일 (약 8~9시간)</span><span>약 5.4만 원 / 1인 · 국립공원 입장료 별도</span><span>마야베이는 수영 금지, 해변 산책만 가능</span></div>
-    </div>
     <div class="tourc must">
       <div class="row"><h3>🛶 홍섬 투어</h3><span class="tag-plan">1/19 일정</span></div>
       <p>절벽 속 홍 라군 · 텁깩 리조트 바로 앞이라 이동 짧음 · 리조트에서 프라이빗 롱테일 예약</p>
       <div class="facts"><span>반나절 · 프라이빗이라 코스 조정 가능</span><span>요금은 리조트에 문의 · 국립공원 입장료 별도</span></div>
     </div>
-    <div class="tourc">
-      <div class="row"><h3>🐔 4섬 투어</h3><span class="tag-opt">1/22 선택</span></div>
-      <p>프라낭 동굴 해변·치킨섬·텁섬·포다섬</p>
-      <div class="facts"><span>반나절~하루 · 약 2.7만 원 / 1인</span></div>
+    <div class="tourc must">
+      <div class="row"><h3>🐠 피피섬 + 마야베이</h3><span class="tag-plan">1/20 일정</span></div>
+      <p>영화 촬영지 마야베이 + 에메랄드빛 피레 라군 · 끄라비 대표 투어</p>
+      <div class="facts"><span>스피드보트 · 하루 종일 (약 8~9시간)</span><span>약 5.4만 원 / 1인 · 국립공원 입장료 별도</span><span>마야베이는 수영 금지, 해변 산책만 가능</span></div>
     </div>
     <div class="tourc">
       <div class="row"><h3>🧗 라일레이 · 프라낭 비치</h3><span class="tag-plan">1/21 일정</span></div>
       <p>차 없는 절벽 속 해변 · 프라낭 동굴 해변은 라야바디 바로 앞 · 아오낭 해변에서 롱테일보트로 직접 가기</p>
       <div class="facts"><span>투어 예약 없이 가능 · 보트 왕복 1인 수백 바트</span></div>
-    </div>
-    <div class="tourc">
-      <div class="row"><h3>🌿 정글 투어</h3><span class="tag-opt">다음 기회</span></div>
-      <p>에메랄드 풀·온천·타이거 케이브 사원(계단 1,200여 개) · 이번엔 시간 부족</p>
-      <div class="facts"><span>하루 종일</span></div>
     </div>
   </div>
   <p class="src">투어 가격: 2026년 11월 아고다 액티비티 1인 요금 기준 · 업체·시기마다 다름 · 국립공원 입장료는 보통 현장 현금</p>
@@ -628,7 +614,7 @@ footer{font-size:12px;color:var(--muted)}
 </section>
 
 <section id="jj">
-  <div class="sec-head"><h2>🛍️ 짜뚜짝 주말시장 가이드</h2><p>1/24 (일) 오전 · 토·일 09:00~18:00 · 27개 구역 · MRT 깜팽펫역 / BTS 모칫역</p></div>
+  <div class="sec-head"><h2>🛍️ 짜뚜짝 주말시장 가이드</h2></div>
   <div class="jj">
     <figure class="jjc">
       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Chatuchak_clock_tower.jpg/960px-Chatuchak_clock_tower.jpg" alt="짜뚜짝 주말시장 시계탑" loading="lazy">
