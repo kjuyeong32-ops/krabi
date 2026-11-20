@@ -82,6 +82,10 @@ header{display:flex;flex-direction:column;gap:10px}
 .tl .t{font-family:var(--font-mono);font-size:13px;color:var(--muted);padding-top:1px}
 .tl .x{min-width:0}
 .tl a{color:var(--sea);font-weight:500}
+.sleep a{color:inherit;text-decoration:underline;text-decoration-color:var(--sea);text-underline-offset:3px}
+.sleep a::after{content:" 📍";font-size:12px}
+.map-card svg a.ml text{fill:var(--sea);text-decoration:underline}
+.map-card svg a.ml:focus-visible text{fill:var(--ink)}
 .tl .x .note{display:block;font-size:13px;color:var(--muted)}
 .tl li.hl .x{font-weight:500}
 .tl li.hl .x::before{content:"투어";display:inline-block;margin-right:6px;padding:0 7px;border-radius:999px;font-size:11px;font-weight:700;background:var(--tour-soft);color:var(--tour);vertical-align:1px}
@@ -223,16 +227,6 @@ footer{font-size:12px;color:var(--muted)}
     <div class="cal-month"><b>2027년 1월</b><span>1/18 출발 · 1/25 귀국</span></div>
     <div class="cal-head"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div>
     <div class="wk">
-      <span class="cd blank"></span><span class="cd blank"></span><span class="cd blank"></span><span class="cd blank"></span><span class="cd blank"></span>
-      <span class="cd">1</span><span class="cd">2</span>
-    </div>
-    <div class="wk">
-      <span class="cd">3</span><span class="cd">4</span><span class="cd">5</span><span class="cd">6</span><span class="cd">7</span><span class="cd">8</span><span class="cd">9</span>
-    </div>
-    <div class="wk">
-      <span class="cd">10</span><span class="cd">11</span><span class="cd">12</span><span class="cd">13</span><span class="cd">14</span><span class="cd">15</span><span class="cd">16</span>
-    </div>
-    <div class="wk">
       <span class="cd">17</span>
       <a class="cd trip bkk" href="#d18" style="--dc:var(--c18)"><span class="num">18</span><span class="emo">✈️</span><span class="lb">방콕 도착</span></a>
       <a class="cd trip kbv" href="#d19" style="--dc:var(--c19)"><span class="num">19</span><span class="emo">🛶</span><span class="lb">홍섬</span></a>
@@ -252,13 +246,9 @@ footer{font-size:12px;color:var(--muted)}
       <span class="cd trip home" style="--dc:var(--muted)"><span class="num">25</span><span class="emo">🏠</span><span class="lb">김해 도착</span></span>
       <span class="cd">26</span><span class="cd">27</span><span class="cd">28</span><span class="cd">29</span><span class="cd">30</span>
     </div>
-    <div class="wk">
-      <span class="cd">31</span>
-    </div>
     <div class="cal-note">
       <span><i style="background:var(--city-soft);border:1px solid var(--city)"></i>방콕</span>
       <span><i style="background:var(--sea-soft);border:1px solid var(--sea)"></i>끄라비</span>
-      <span>🏨 띠는 그날 밤 묵는 숙소</span>
     </div>
   </div>
 </section>
@@ -344,15 +334,15 @@ footer{font-size:12px;color:var(--muted)}
         <circle class="pt" cx="175" cy="118" r="4"/>
         <circle class="pt" cx="218" cy="149" r="4"/>
 
-        <text x="366" y="82" text-anchor="middle">끄라비 공항</text>
-        <text class="m" x="286" y="92" text-anchor="middle">끄라비 타운</text>
-        <text x="127" y="42" text-anchor="end">텁깩 리조트</text>
-        <text x="218" y="112">아오낭 Eco Inn</text>
-        <text class="m" x="168" y="136" text-anchor="end">노파랏 타라 선착장</text>
-        <text x="227" y="160">라일레이</text>
-        <text x="53" y="102" text-anchor="middle">홍섬</text>
-        <text x="173" y="423">피피섬</text>
-        <text x="157" y="487">마야베이</text>
+        <a class="ml" href="https://www.google.com/maps/search/?api=1&amp;query=Krabi+International+Airport" target="_blank" rel="noopener"><text x="366" y="82" text-anchor="middle">끄라비 공항</text></a>
+        <a class="ml" href="https://www.google.com/maps/search/?api=1&amp;query=Krabi+Town" target="_blank" rel="noopener"><text class="m" x="286" y="92" text-anchor="middle">끄라비 타운</text></a>
+        <a class="ml" href="https://www.google.com/maps/search/?api=1&amp;query=The+Tubkaak+Krabi+Boutique+Resort" target="_blank" rel="noopener"><text x="127" y="42" text-anchor="end">텁깩 리조트</text></a>
+        <a class="ml" href="https://www.google.com/maps/search/?api=1&amp;query=Eco+Inn+Cottage+by+Aonang+Hill" target="_blank" rel="noopener"><text x="218" y="112">아오낭 Eco Inn</text></a>
+        <a class="ml" href="https://www.google.com/maps/search/?api=1&amp;query=Nopparat+Thara+Pier" target="_blank" rel="noopener"><text class="m" x="168" y="136" text-anchor="end">노파랏 타라 선착장</text></a>
+        <a class="ml" href="https://www.google.com/maps/search/?api=1&amp;query=Railay+Beach+Krabi" target="_blank" rel="noopener"><text x="227" y="160">라일레이</text></a>
+        <a class="ml" href="https://www.google.com/maps/search/?api=1&amp;query=Hong+Island+Krabi" target="_blank" rel="noopener"><text x="53" y="102" text-anchor="middle">홍섬</text></a>
+        <a class="ml" href="https://www.google.com/maps/search/?api=1&amp;query=Koh+Phi+Phi+Don" target="_blank" rel="noopener"><text x="173" y="423">피피섬</text></a>
+        <a class="ml" href="https://www.google.com/maps/search/?api=1&amp;query=Maya+Bay+Phi+Phi" target="_blank" rel="noopener"><text x="157" y="487">마야베이</text></a>
       </svg>
       <ol class="steps">
         <li><span class="sn" style="--sc:var(--c19)">1</span>1/19 끄라비 공항 → 텁깩 리조트 🚗</li>
@@ -363,15 +353,6 @@ footer{font-size:12px;color:var(--muted)}
         <li><span class="sn" style="--sc:var(--c21)">6</span>1/21 아오낭 → 라일레이·프라낭 비치 🛶</li>
         <li><span class="sn" style="--sc:var(--c22)">7</span>1/22 아오낭 → 끄라비 공항 🚗</li>
       </ol>
-      <div class="places">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Krabi+International+Airport" target="_blank" rel="noopener">끄라비 공항</a>
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=The+Tubkaak+Krabi+Boutique+Resort" target="_blank" rel="noopener">텁깩 리조트</a>
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Eco+Inn+Cottage+by+Aonang+Hill" target="_blank" rel="noopener">Eco Inn Cottage</a>
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Railay+Beach+Krabi" target="_blank" rel="noopener">라일레이</a>
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Raitalay+Terrace+Rayavadee" target="_blank" rel="noopener">라이탈레이 테라스</a>
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Lae+Lay+Grill+Ao+Nang" target="_blank" rel="noopener">래레이 그릴</a>
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Maya+Bay+Phi+Phi" target="_blank" rel="noopener">마야베이</a>
-      </div>
     </div>
 
     <div class="map-card">
@@ -398,13 +379,13 @@ footer{font-size:12px;color:var(--muted)}
         <circle class="pt" cx="185" cy="140" r="5"/>
         <circle class="pt stay" cx="200" cy="262" r="6"/>
 
-        <text x="227" y="30" text-anchor="end">12 The Residence</text>
-        <text x="262" y="62">돈므앙 공항</text>
-        <text x="360" y="327" text-anchor="middle">수완나품 공항</text>
-        <text x="106" y="212" text-anchor="end">왕궁·왓포·왓아룬·살라</text>
-        <text x="80" y="300" text-anchor="middle">아이콘시암</text>
-        <text x="195" y="136">짜뚜짝 주말시장</text>
-        <text x="194" y="286" text-anchor="end">센터포인트 룸피니</text>
+        <a class="ml" href="https://www.google.com/maps/search/?api=1&amp;query=12+The+Residence+Hotel+%26+Apartment+Don+Mueang" target="_blank" rel="noopener"><text x="227" y="30" text-anchor="end">12 The Residence</text></a>
+        <a class="ml" href="https://www.google.com/maps/search/?api=1&amp;query=Don+Mueang+International+Airport" target="_blank" rel="noopener"><text x="262" y="62">돈므앙 공항</text></a>
+        <a class="ml" href="https://www.google.com/maps/search/?api=1&amp;query=Suvarnabhumi+Airport" target="_blank" rel="noopener"><text x="360" y="327" text-anchor="middle">수완나품 공항</text></a>
+        <a class="ml" href="https://www.google.com/maps/search/?api=1&amp;query=Grand+Palace+Bangkok" target="_blank" rel="noopener"><text x="106" y="212" text-anchor="end">왕궁·왓포·왓아룬·살라</text></a>
+        <a class="ml" href="https://www.google.com/maps/search/?api=1&amp;query=ICONSIAM" target="_blank" rel="noopener"><text x="80" y="300" text-anchor="middle">아이콘시암</text></a>
+        <a class="ml" href="https://www.google.com/maps/search/?api=1&amp;query=Chatuchak+Weekend+Market" target="_blank" rel="noopener"><text x="195" y="136">짜뚜짝 주말시장</text></a>
+        <a class="ml" href="https://www.google.com/maps/search/?api=1&amp;query=Grande+Centre+Point+Lumpini+Bangkok" target="_blank" rel="noopener"><text x="194" y="286" text-anchor="end">센터포인트 룸피니</text></a>
       </svg>
       <ol class="steps">
         <li><span class="sn" style="--sc:var(--c18)">1</span>1/18 수완나품 공항 → 12 The Residence 🚗</li>
@@ -416,18 +397,6 @@ footer{font-size:12px;color:var(--muted)}
         <li><span class="sn" style="--sc:var(--c24)">7</span>1/24 룸피니 → 짜뚜짝 주말시장 🚗</li>
         <li><span class="sn" style="--sc:var(--c24)">8</span>1/24 룸피니 → 수완나품 공항 🚗</li>
       </ol>
-      <div class="places">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=12+The+Residence+Hotel+%26+Apartment+Don+Mueang" target="_blank" rel="noopener">12 The Residence</a>
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Don+Mueang+International+Airport" target="_blank" rel="noopener">돈므앙 공항</a>
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Grande+Centre+Point+Lumpini+Bangkok" target="_blank" rel="noopener">센터포인트 룸피니</a>
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Grand+Palace+Bangkok" target="_blank" rel="noopener">왕궁</a>
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Wat+Pho" target="_blank" rel="noopener">왓포</a>
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Wat+Arun" target="_blank" rel="noopener">왓아룬</a>
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Sala+Rattanakosin+Bangkok" target="_blank" rel="noopener">살라 라따나꼬신</a>
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=ICONSIAM" target="_blank" rel="noopener">아이콘시암</a>
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Chatuchak+Weekend+Market" target="_blank" rel="noopener">짜뚜짝</a>
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Suvarnabhumi+Airport" target="_blank" rel="noopener">수완나품 공항</a>
-      </div>
     </div>
 
   </div>
@@ -448,7 +417,7 @@ footer{font-size:12px;color:var(--muted)}
         <li><span class="t">22:40</span><span class="x">그랩이나 공항 택시로 돈므앙 쪽 호텔 이동, 약 40~50분<span class="note">수완나품 ≠ 돈므앙, 다른 공항 주의 · 고속도로 통행료는 승객 부담</span></span></li>
         <li><span class="t">23:30</span><span class="x">12 The Residence 체크인, 바로 자기<span class="note">짐 풀지 말기 · 체크인할 때 새벽 택시나 셔틀 미리 요청</span></span></li>
       </ul>
-      <p class="sleep">숙소 <b>12 The Residence Hotel &amp; Apartment</b></p>
+      <p class="sleep">숙소 <b><a href="https://www.google.com/maps/search/?api=1&amp;query=12+The+Residence+Hotel+%26+Apartment+Don+Mueang" target="_blank" rel="noopener">12 The Residence Hotel &amp; Apartment</a></b></p>
     </article>
 
     <article class="day" id="d19">
@@ -468,7 +437,7 @@ footer{font-size:12px;color:var(--muted)}
         <li><span class="t">18:30</span><span class="x">텁깩 해변에서 노을 감상<span class="note">1월 일몰 오후 6시 반 전후 · 홍섬 쪽으로 해 짐</span></span></li>
         <li><span class="t">저녁</span><span class="x">리조트 레스토랑에서 저녁</span></li>
       </ul>
-      <p class="sleep">숙소 <b>The Tubkaak Krabi Boutique Resort</b> (1박째)</p>
+      <p class="sleep">숙소 <b><a href="https://www.google.com/maps/search/?api=1&amp;query=The+Tubkaak+Krabi+Boutique+Resort" target="_blank" rel="noopener">The Tubkaak Krabi Boutique Resort</a></b> (1박째)</p>
     </article>
 
     <article class="day" id="d20">
@@ -482,7 +451,7 @@ footer{font-size:12px;color:var(--muted)}
         <li><span class="t">17:00</span><span class="x">리조트 도착, 스파나 마사지로 피로 풀기</span></li>
         <li><span class="t">저녁</span><span class="x">리조트에서 여유 있게 저녁</span></li>
       </ul>
-      <p class="sleep">숙소 <b>The Tubkaak Krabi Boutique Resort</b> (2박째)</p>
+      <p class="sleep">숙소 <b><a href="https://www.google.com/maps/search/?api=1&amp;query=The+Tubkaak+Krabi+Boutique+Resort" target="_blank" rel="noopener">The Tubkaak Krabi Boutique Resort</a></b> (2박째)</p>
     </article>
 
     <article class="day" id="d21">
@@ -494,13 +463,13 @@ footer{font-size:12px;color:var(--muted)}
         <li><span class="t">08:00</span><span class="x">조식, 텁깩 체크아웃</span></li>
         <li><span class="t">09:30</span><span class="x">아오낭 Eco Inn Cottage 도착, 짐 맡기기<span class="note">텁깩 → 아오낭 차로 약 30분</span></span></li>
         <li class="hl"><span class="t">10:00</span><span class="x">아오낭 해변 → 롱테일보트 → 프라낭 동굴 해변 (라야바디 앞 해변)<span class="note">보트 약 15분 · 1인 150~200바트, 6~8명 모이면 출발 · 해변은 누구나 이용 가능</span></span></li>
-        <li><span class="t">12:30</span><span class="x">🍽️ 점심 · 라이탈레이 테라스 (Raitalay Terrace, 라야바디)<span class="note">라야바디 수영장 옆, 라일레이 웨스트 해변 뷰 · 11~23시 · 메일 문의 완료, 답장 대기 · 비키니 차림 입장 불가 → 위에 옷 걸치기 · 안 되면 프라낭 해변 도아시스 카페 (Doasis Cafe)</span></span></li>
+        <li><span class="t">12:30</span><span class="x">🍽️ 점심 · <a href="https://www.google.com/maps/search/?api=1&amp;query=Raitalay+Terrace+Rayavadee" target="_blank" rel="noopener">라이탈레이 테라스</a> (Raitalay Terrace, 라야바디)<span class="note">라야바디 수영장 옆, 라일레이 웨스트 해변 뷰 · 11~23시 · 메일 문의 완료, 답장 대기 · 비키니 차림 입장 불가 → 위에 옷 걸치기 · 안 되면 프라낭 해변 도아시스 카페 (Doasis Cafe)</span></span></li>
         <li><span class="t">오후</span><span class="x">프라낭 해변 수영, 프라낭 동굴, 라일레이 산책</span></li>
         <li><span class="t">18:30</span><span class="x">라일레이 웨스트에서 노을 → 롱테일보트로 아오낭 복귀<span class="note">보트 운행 21시까지 · 늦지 않게</span></span></li>
-        <li><span class="t">19:30</span><span class="x">🍷 저녁 · 래레이 그릴 (Lae Lay Grill)<span class="note">아오낭 언덕 위 전망 레스토랑 · Eco Inn과 같은 아오낭 언덕 쪽 · 저녁 자리 미리 예약</span></span></li>
+        <li><span class="t">19:30</span><span class="x">🍷 저녁 · <a href="https://www.google.com/maps/search/?api=1&amp;query=Lae+Lay+Grill+Ao+Nang" target="_blank" rel="noopener">래레이 그릴</a> (Lae Lay Grill)<span class="note">아오낭 언덕 위 전망 레스토랑 · Eco Inn과 같은 아오낭 언덕 쪽 · 저녁 자리 미리 예약</span></span></li>
         <li><span class="t">21:30</span><span class="x">Eco Inn 체크인, 쉬기</span></li>
       </ul>
-      <p class="sleep">숙소 <b>Eco Inn Cottage by Aonang Hill</b></p>
+      <p class="sleep">숙소 <b><a href="https://www.google.com/maps/search/?api=1&amp;query=Eco+Inn+Cottage+by+Aonang+Hill" target="_blank" rel="noopener">Eco Inn Cottage by Aonang Hill</a></b></p>
     </article>
 
     <article class="day" id="d22">
@@ -516,7 +485,7 @@ footer{font-size:12px;color:var(--muted)}
         <li><span class="t">19:45</span><span class="x">끄라비 출발 (타이 에어아시아 FD3228) → 21:10 돈므앙 도착</span></li>
         <li><span class="t">22:30</span><span class="x">그란데 센터 포인트 룸피니 체크인, 쉬기<span class="note">돈므앙 → 룸피니 택시 약 30~40분</span></span></li>
       </ul>
-      <p class="sleep">숙소 <b>Grande Centre Point Lumpini</b> (1박째)</p>
+      <p class="sleep">숙소 <b><a href="https://www.google.com/maps/search/?api=1&amp;query=Grande+Centre+Point+Lumpini+Bangkok" target="_blank" rel="noopener">Grande Centre Point Lumpini</a></b> (1박째)</p>
     </article>
 
     <article class="day" id="d23">
@@ -529,10 +498,10 @@ footer{font-size:12px;color:var(--muted)}
         <li><span class="t">11:00</span><span class="x">왓포에서 와불 보고 타이 마사지 받기</span></li>
         <li><span class="t">12:30</span><span class="x">배로 강 건너 왓아룬, 근처 강변 카페에서 점심</span></li>
         <li><span class="t">15:00</span><span class="x">아이콘시암 구경 → 숙소에서 잠깐 쉬기</span></li>
-        <li><span class="t">17:30</span><span class="x">🌇 저녁 · 살라 라따나꼬신 (Sala Rattanakosin Eatery &amp; Bar)<span class="note">왓아룬 바로 맞은편 강변 · 해 질 녘 → 불 켜진 왓아룬까지 · 2층 에어컨 실내가 뷰 가장 좋음 · TableCheck 예약 필수 · 첫 타임(17:30·18:00)은 2시간 이용 · 24시간 이내 취소 시 보증금 환불 X</span></span></li>
+        <li><span class="t">17:30</span><span class="x">🌇 저녁 · <a href="https://www.google.com/maps/search/?api=1&amp;query=Sala+Rattanakosin+Bangkok" target="_blank" rel="noopener">살라 라따나꼬신</a> (Sala Rattanakosin Eatery &amp; Bar)<span class="note">왓아룬 바로 맞은편 강변 · 해 질 녘 → 불 켜진 왓아룬까지 · 2층 에어컨 실내가 뷰 가장 좋음 · TableCheck 예약 필수 · 첫 타임(17:30·18:00)은 2시간 이용 · 24시간 이내 취소 시 보증금 환불 X</span></span></li>
         <li><span class="t">20:00</span><span class="x">(선택) 쩟페어 야시장이나 루프탑 바</span></li>
       </ul>
-      <p class="sleep">숙소 <b>Grande Centre Point Lumpini</b> (2박째)</p>
+      <p class="sleep">숙소 <b><a href="https://www.google.com/maps/search/?api=1&amp;query=Grande+Centre+Point+Lumpini+Bangkok" target="_blank" rel="noopener">Grande Centre Point Lumpini</a></b> (2박째)</p>
     </article>
 
     <article class="day" id="d24">
