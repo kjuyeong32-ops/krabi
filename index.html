@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>방콕·끄라비 부부 여행</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* Layout: one narrow travel column, read on a phone — stay strip, day-by-day timeline, tour cards, checklist */
+:root{
+  --bg:#F2F6F5; --surface:#FFFFFF; --ink:#13302D; --muted:#5A6F6C; --line:#D5E0DD;
+  --sea:#0D7A72; --sea-soft:#DDF0EC; --city:#4A58A3; --city-soft:#E3E6F6;
+  --tour:#B86E0C; --tour-soft:#FBEBD3; --warn-bg:#FFF6E0; --warn-ink:#7A5200;
+  --land:#E4ECE2; --water:#CDE3E7; --river:#8DBFCA;
+  --c18:#8E44AD; --c19:#4A58A3; --c20:#D9480F; --c21:#0D7A72; --c22:#A87C00; --c23:#C2185B; --c24:#2E7D32;
+  --font-body:"IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --font-mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E1918; --surface:#152524; --ink:#E3EEEC; --muted:#93A8A4; --line:#284039;
+  --sea:#43B9AD; --sea-soft:#163A36; --city:#97A2E6; --city-soft:#232A4D;
+  --tour:#EBA845; --tour-soft:#3A2A10; --warn-bg:#33290F; --warn-ink:#F0CF84;
+  --land:#1D2E2A; --water:#0F2A31; --river:#2F6672;
+  --c18:#C690E0; --c19:#97A2E6; --c20:#FF8A50; --c21:#43B9AD; --c22:#E3B53C; --c23:#F06292; --c24:#7BC67E; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1918; --surface:#152524; --ink:#E3EEEC; --muted:#93A8A4; --line:#284039;
+  --sea:#43B9AD; --sea-soft:#163A36; --city:#97A2E6; --city-soft:#232A4D;
+  --tour:#EBA845; --tour-soft:#3A2A10; --warn-bg:#33290F; --warn-ink:#F0CF84;
+  --land:#1D2E2A; --water:#0F2A31; --river:#2F6672;
+  --c18:#C690E0; --c19:#97A2E6; --c20:#FF8A50; --c21:#43B9AD; --c22:#E3B53C; --c23:#F06292; --c24:#7BC67E; color-scheme:dark}
+
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.65;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.wrap{max-width:720px;margin:0 auto;padding-block:32px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{text-wrap:balance;margin:0;line-height:1.3}
+h1{font-size:clamp(28px,6vw,38px);font-weight:700;letter-spacing:-0.01em}
+h2{font-size:20px;font-weight:700}
+h3{font-size:17px;font-weight:700}
+p{margin:0}
+.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:500}
+section{display:flex;flex-direction:column;gap:14px}
+.sec-head{display:flex;flex-direction:column;gap:4px}
+.sec-head p{color:var(--muted);font-size:14px}
+
+/* header */
+header{display:flex;flex-direction:column;gap:10px}
+.dates{font-size:16px;color:var(--muted)}
+.route{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:6px;font-size:14px}
+.pill{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:999px;font-weight:500;font-size:13px;white-space:nowrap}
+.pill.bkk{background:var(--city-soft);color:var(--city)}
+.pill.kbv{background:var(--sea-soft);color:var(--sea)}
+.pill.tour{background:var(--tour-soft);color:var(--tour)}
+.arrow{color:var(--muted)}
+.notice{background:var(--warn-bg);color:var(--warn-ink);border-radius:10px;padding:12px 14px;font-size:14px}
+.notice strong{font-weight:700}
+
+/* stays */
+.stays{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.stay{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:14px 16px;border-top:1px solid var(--line)}
+.stay:first-child{border-top:0}
+.stay .when{font-size:13px;color:var(--muted)}
+.stay .when b{display:block;color:var(--ink);font-size:14px;font-weight:500}
+.stay .name{font-weight:700;min-width:0}
+.stay .meta{font-size:13px;color:var(--muted)}
+.stay.tbd .name{color:var(--warn-ink)}
+
+/* days */
+.days{display:flex;flex-direction:column;gap:14px}
+.day{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.day-top{display:flex;gap:14px;align-items:flex-start}
+.date{flex:0 0 auto;width:54px;text-align:center;border-radius:10px;padding:6px 0;line-height:1.2}
+.date .d{font-family:var(--font-mono);font-size:20px;display:block}
+.date .w{font-size:12px}
+.date.bkk{background:var(--city-soft);color:var(--city)}
+.date.kbv{background:var(--sea-soft);color:var(--sea)}
+.day-title{display:flex;flex-direction:column;gap:4px;min-width:0}
+.day-title .sub{font-size:13px;color:var(--muted)}
+.tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.tl li{display:grid;grid-template-columns:62px 1fr;gap:10px;font-size:14px}
+.tl .t{font-family:var(--font-mono);font-size:13px;color:var(--muted);padding-top:1px}
+.tl .x{min-width:0}
+.tl .x .note{display:block;font-size:13px;color:var(--muted)}
+.tl li.hl .x{font-weight:500}
+.tl li.hl .x::before{content:"투어";display:inline-block;margin-right:6px;padding:0 7px;border-radius:999px;font-size:11px;font-weight:700;background:var(--tour-soft);color:var(--tour);vertical-align:1px}
+.sleep{font-size:13px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+.sleep b{color:var(--ink);font-weight:500}
+
+/* tours */
+.tours{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:560px){.tours{grid-template-columns:1fr}}
+.tourc{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.tourc.must{border-color:var(--tour)}
+.tourc .row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.tourc p{font-size:14px}
+.tourc .facts{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:2px}
+.tag-plan{font-size:12px;font-weight:700;color:var(--tour)}
+.tag-opt{font-size:12px;font-weight:500;color:var(--muted)}
+.src{font-size:12px;color:var(--muted)}
+
+/* maps */
+.maps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:640px){.maps{grid-template-columns:1fr}}
+.map-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.map-card svg{width:100%;height:auto;display:block;border-radius:8px}
+.map-card svg text{font-family:var(--font-body);font-size:11px;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
+.map-card svg text.m{fill:var(--muted);font-size:10px}
+.map-card svg text.sea{fill:var(--muted);font-size:12px;letter-spacing:.1em;stroke:none}
+.land{fill:var(--land)} .water{fill:var(--water)}
+.island{fill:var(--land);stroke:var(--muted);stroke-width:.6}
+.river{fill:none;stroke:var(--river);stroke-width:6;stroke-linecap:round}
+.route{fill:none;stroke-width:3;stroke-linecap:round}
+.boat{stroke-dasharray:6 5}
+.pt{fill:var(--surface);stroke:var(--ink);stroke-width:2}
+.pt.stay{fill:var(--ink)}
+.r18{stroke:var(--c18)} .r19{stroke:var(--c19)} .r20{stroke:var(--c20)} .r21{stroke:var(--c21)} .r22{stroke:var(--c22)} .r23{stroke:var(--c23)} .r24{stroke:var(--c24)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;margin:0;padding:0;list-style:none}
+.legend li{display:flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:18px;height:0;border-top:3px solid;border-radius:2px}
+.legend i.b{border-top-style:dashed}
+.places{font-size:13px;display:flex;flex-wrap:wrap;gap:4px 12px}
+.places a{color:var(--sea);text-decoration:none;border-bottom:1px solid var(--sea-soft)}
+.places a:hover,.places a:focus-visible{border-bottom-color:var(--sea)}
+
+/* checklist + tips */
+.list{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px 16px}
+.check{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line);font-size:14px;cursor:pointer}
+.check:first-child{border-top:0}
+.check input{margin-top:4px;width:18px;height:18px;accent-color:var(--sea);flex:0 0 auto}
+.check input:checked + span{color:var(--muted);text-decoration:line-through}
+.check input:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
+.tips{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:14px}
+footer{font-size:12px;color:var(--muted)}
+</style>
+<style>body{margin:0}[hidden]{display:none!important}svg{max-width:100%}img{max-width:100%}</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header>
+  <span class="eyebrow">부부 여행 · 6박 7일</span>
+  <h1>방콕·끄라비 여행</h1>
+  <p class="dates mono">2027.1.18 (월) — 1.24 (일)</p>
+  <div class="route">
+    <span class="pill bkk">방콕 돈므앙 1박</span><span class="arrow">→</span>
+    <span class="pill kbv">끄라비 3박</span><span class="arrow">→</span>
+    <span class="pill bkk">방콕 2박</span>
+  </div>
+  <p class="notice"><strong>1/19는 새벽 5시 전에 일어나야 해요.</strong> 1/18 밤 11시 반쯤 호텔에 도착하고, 다음 날 아침 7시 비행기라 잠을 4~5시간밖에 못 자요. 끄라비 첫날은 쉬는 날로 잡았어요.</p>
+</header>
+
+<section>
+  <div class="sec-head"><h2>항공편</h2><p>모두 현지 시간이에요.</p></div>
+  <div class="stays">
+    <div class="stay">
+      <div class="when"><b>1/18 (월)</b><span class="mono">18:00 → 21:50</span></div>
+      <div><div class="name">김해(PUS) → 방콕 수완나품(BKK)</div><div class="meta">에어부산 BX545</div></div>
+    </div>
+    <div class="stay">
+      <div class="when"><b>1/19 (화)</b><span class="mono">07:00 → 08:25</span></div>
+      <div><div class="name">방콕 돈므앙(DMK) T2 → 끄라비(KBV)</div><div class="meta">타이 에어아시아 FD3221</div></div>
+    </div>
+    <div class="stay">
+      <div class="when"><b>1/22 (금)</b><span class="mono">19:45 → 21:10</span></div>
+      <div><div class="name">끄라비(KBV) → 방콕 돈므앙(DMK) T2</div><div class="meta">타이 에어아시아 FD3228</div></div>
+    </div>
+    <div class="stay">
+      <div class="when"><b>1/24 (일)</b><span class="mono">22:50 → 06:20</span></div>
+      <div><div class="name">방콕 수완나품(BKK) → 김해(PUS)</div><div class="meta">에어부산 BX546 · 1/25 (월) 아침 도착</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>숙소</h2></div>
+  <div class="stays">
+    <div class="stay">
+      <div class="when"><b>1/18 (월)</b>1박</div>
+      <div><div class="name">12 The Residence Hotel &amp; Apartment</div><div class="meta">방콕 돈므앙 · 돈므앙 공항(DMK)에서 약 2km</div></div>
+    </div>
+    <div class="stay">
+      <div class="when"><b>1/19 – 1/21</b>2박</div>
+      <div><div class="name">The Tubkaak Krabi Boutique Resort</div><div class="meta">끄라비 텁깩 비치 · 해변 앞, 홍섬이 보이는 노을 명소</div></div>
+    </div>
+    <div class="stay">
+      <div class="when"><b>1/21 – 1/22</b>1박</div>
+      <div><div class="name">Eco Inn Cottage by Aonang Hill</div><div class="meta">끄라비 아오낭 · 아오낭 해변까지 약 1km</div></div>
+    </div>
+    <div class="stay tbd">
+      <div class="when"><b>1/22 – 1/24</b>2박</div>
+      <div><div class="name">방콕 숙소 (예약 전)</div><div class="meta">수쿰윗 쪽을 추천해요. 출국하는 수완나품 공항까지 공항철도로 가기 편해요</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>동선 지도</h2><p>위치 비율만 맞춘 개략도예요. 실선은 차, 점선은 배로 이동하는 구간이에요. 장소 이름을 누르면 구글 지도가 열려요.</p></div>
+  <div class="maps">
+
+    <div class="map-card">
+      <h3>끄라비</h3>
+      <svg viewBox="0 0 400 510" role="img" aria-label="끄라비 동선 개략도: 공항에서 텁깩 리조트, 피피섬, 아오낭, 7섬, 라일레이">
+        <rect width="400" height="510" class="water"/>
+        <polygon class="land" points="90,0 400,0 400,110 310,110 280,100 260,120 240,140 218,155 205,135 190,130 160,110 130,90 128,55 110,30"/>
+        <ellipse class="island" cx="53" cy="82" rx="7" ry="5"/>
+        <circle class="island" cx="188" cy="190" r="4"/>
+        <circle class="island" cx="189" cy="207" r="3"/>
+        <ellipse class="island" cx="158" cy="419" rx="10" ry="15"/>
+        <ellipse class="island" cx="146" cy="482" rx="5" ry="9"/>
+        <text class="sea" x="40" y="300">안다만해</text>
+
+        <path class="route r19" d="M366,61 C300,38 200,38 135,55"/>
+        <path class="route r20" d="M135,55 Q150,95 175,118"/>
+        <path class="route r20 boat" d="M175,118 Q200,300 158,419 L146,482"/>
+        <path class="route r21" d="M135,55 Q175,95 209,125"/>
+        <path class="route r21 boat" d="M203,128 Q205,165 188,190 L189,207"/>
+        <path class="route r22 boat" d="M203,128 L218,149"/>
+        <path class="route r22" d="M209,125 Q300,125 366,61"/>
+
+        <circle class="pt" cx="366" cy="61" r="5"/>
+        <circle class="pt" cx="286" cy="74" r="3"/>
+        <circle class="pt stay" cx="135" cy="55" r="6"/>
+        <circle class="pt stay" cx="209" cy="125" r="6"/>
+        <circle class="pt" cx="175" cy="118" r="4"/>
+        <circle class="pt" cx="218" cy="149" r="4"/>
+
+        <text x="366" y="82" text-anchor="middle">끄라비 공항</text>
+        <text class="m" x="286" y="92" text-anchor="middle">끄라비 타운</text>
+        <text x="127" y="74" text-anchor="end">텁깩 리조트</text>
+        <text x="218" y="118">아오낭 Eco Inn</text>
+        <text class="m" x="168" y="104" text-anchor="end">노파랏 타라 선착장</text>
+        <text x="227" y="160">라일레이</text>
+        <text x="53" y="102" text-anchor="middle">홍섬</text>
+        <text x="198" y="202">포다섬·치킨섬</text>
+        <text x="173" y="423">피피섬</text>
+        <text x="157" y="487">마야베이</text>
+      </svg>
+      <ul class="legend">
+        <li><i style="border-color:var(--c19)"></i>1/19 공항 → 리조트</li>
+        <li><i class="b" style="border-color:var(--c20)"></i>1/20 피피섬 투어</li>
+        <li><i style="border-color:var(--c21)"></i>1/21 이동 + 7섬 선셋</li>
+        <li><i style="border-color:var(--c22)"></i>1/22 라일레이 → 공항</li>
+      </ul>
+      <div class="places">
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Krabi+International+Airport" target="_blank" rel="noopener">끄라비 공항</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=The+Tubkaak+Krabi+Boutique+Resort" target="_blank" rel="noopener">텁깩 리조트</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Eco+Inn+Cottage+by+Aonang+Hill" target="_blank" rel="noopener">Eco Inn Cottage</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Railay+Beach+Krabi" target="_blank" rel="noopener">라일레이</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Maya+Bay+Phi+Phi" target="_blank" rel="noopener">마야베이</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Poda+Island+Krabi" target="_blank" rel="noopener">포다섬</a>
+      </div>
+    </div>
+
+    <div class="map-card">
+      <h3>방콕</h3>
+      <svg viewBox="0 0 400 360" role="img" aria-label="방콕 동선 개략도: 수완나품 공항, 돈므앙 숙소, 수쿰윗, 왕궁, 아이콘시암, 짜뚜짝">
+        <rect width="400" height="360" class="land"/>
+        <path class="river" d="M58,0 C55,60 60,100 58,108 C52,170 45,220 47,240 C55,265 65,275 90,285 C110,295 120,300 117,310 C110,330 95,345 93,360"/>
+        <text class="m" x="40" y="150" text-anchor="end" transform="rotate(-80 40 150)">짜오프라야강</text>
+
+        <path class="route r18" d="M350,312 C330,180 240,80 169,36"/>
+        <path class="route r19" d="M169,36 L183,45"/>
+        <path class="route r22" d="M183,45 C185,140 150,210 128,256"/>
+        <path class="route r23" d="M128,256 C100,236 70,236 48,244 L70,268 C90,272 110,264 128,256"/>
+        <path class="route r24" d="M128,256 C132,220 126,200 117,180"/>
+        <path class="route r24" d="M128,256 C200,276 290,300 350,312"/>
+
+        <circle class="pt stay" cx="169" cy="36" r="6"/>
+        <circle class="pt" cx="183" cy="45" r="5"/>
+        <circle class="pt" cx="350" cy="312" r="5"/>
+        <circle class="pt" cx="48" cy="244" r="5"/>
+        <circle class="pt" cx="70" cy="268" r="4"/>
+        <circle class="pt" cx="117" cy="180" r="5"/>
+        <circle class="pt stay" cx="128" cy="256" r="6"/>
+
+        <text x="177" y="30">12 The Residence</text>
+        <text x="192" y="54">돈므앙 공항</text>
+        <text x="350" y="334" text-anchor="middle">수완나품 공항</text>
+        <text x="58" y="230">왕궁·왓포·왓아룬</text>
+        <text x="78" y="286">아이콘시암</text>
+        <text x="126" y="178">짜뚜짝 주말시장</text>
+        <text x="137" y="252">수쿰윗 숙소(예정)</text>
+      </svg>
+      <ul class="legend">
+        <li><i style="border-color:var(--c18)"></i>1/18 공항 → 숙소</li>
+        <li><i style="border-color:var(--c19)"></i>1/19 새벽 돈므앙</li>
+        <li><i style="border-color:var(--c22)"></i>1/22 돈므앙 → 수쿰윗</li>
+        <li><i style="border-color:var(--c23)"></i>1/23 사원·강변</li>
+        <li><i style="border-color:var(--c24)"></i>1/24 짜뚜짝 → 공항</li>
+      </ul>
+      <div class="places">
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=12+The+Residence+Hotel+%26+Apartment+Don+Mueang" target="_blank" rel="noopener">12 The Residence</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Don+Mueang+International+Airport" target="_blank" rel="noopener">돈므앙 공항</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Grand+Palace+Bangkok" target="_blank" rel="noopener">왕궁</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Wat+Pho" target="_blank" rel="noopener">왓포</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Wat+Arun" target="_blank" rel="noopener">왓아룬</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=ICONSIAM" target="_blank" rel="noopener">아이콘시암</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Chatuchak+Weekend+Market" target="_blank" rel="noopener">짜뚜짝</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Suvarnabhumi+Airport" target="_blank" rel="noopener">수완나품 공항</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>날짜별 일정</h2><p>끄라비에서는 투어를 하루에 하나씩만 넣어서 쉬는 시간을 남겼어요.</p></div>
+  <div class="days">
+
+    <article class="day">
+      <div class="day-top">
+        <div class="date bkk"><span class="d">18</span><span class="w">1월 · 월</span></div>
+        <div class="day-title"><h3>방콕 도착</h3><span class="sub">돈므앙 공항 근처에서 짧게 자기</span></div>
+      </div>
+      <ul class="tl">
+        <li><span class="t">18:00</span><span class="x">김해 출발 (에어부산 BX545)<span class="note">기내에서 저녁을 먹어두세요. 호텔 도착이 늦어요.</span></span></li>
+        <li><span class="t">21:50</span><span class="x">수완나품(BKK) 도착 → 입국 심사, 짐 찾기</span></li>
+        <li><span class="t">22:40</span><span class="x">그랩이나 공항 택시로 돈므앙 쪽 호텔 이동, 약 40~50분<span class="note">수완나품과 돈므앙은 다른 공항이에요. 고속도로 통행료는 승객이 내요.</span></span></li>
+        <li><span class="t">23:30</span><span class="x">12 The Residence 체크인, 바로 자기<span class="note">짐은 풀지 말고, 새벽 이동 택시나 호텔 셔틀을 체크인할 때 미리 부탁하세요.</span></span></li>
+      </ul>
+      <p class="sleep">숙소 <b>12 The Residence Hotel &amp; Apartment</b></p>
+    </article>
+
+    <article class="day">
+      <div class="day-top">
+        <div class="date kbv"><span class="d">19</span><span class="w">1월 · 화</span></div>
+        <div class="day-title"><h3>끄라비로 이동</h3><span class="sub">잠이 부족한 날이라 리조트에서 푹 쉬기</span></div>
+      </div>
+      <ul class="tl">
+        <li><span class="t">05:00</span><span class="x">기상, 체크아웃</span></li>
+        <li><span class="t">05:30</span><span class="x">돈므앙 공항 T2(국내선) 도착, 에어아시아 체크인<span class="note">국내선은 출발 1시간 전쯤 카운터가 닫혀요. 호텔에서 공항까지 약 2km예요.</span></span></li>
+        <li><span class="t">07:00</span><span class="x">돈므앙 출발 (타이 에어아시아 FD3221)</span></li>
+        <li><span class="t">08:25</span><span class="x">끄라비 공항 도착 → 텁깩 리조트, 차로 약 30~40분</span></li>
+        <li><span class="t">09:30</span><span class="x">리조트에 짐 맡기고 조식이나 브런치<span class="note">얼리 체크인이 되는지 미리 메일로 물어보세요. 안 되면 수영장 선베드에서 낮잠.</span></span></li>
+        <li><span class="t">14:00</span><span class="x">체크인, 낮잠과 수영장 휴식</span></li>
+        <li><span class="t">18:00</span><span class="x">텁깩 해변에서 노을 감상<span class="note">1월 노을은 대략 오후 6시 반 전후예요.</span></span></li>
+        <li><span class="t">저녁</span><span class="x">리조트 레스토랑에서 저녁</span></li>
+      </ul>
+      <p class="sleep">숙소 <b>The Tubkaak Krabi Boutique Resort</b> (1박째)</p>
+    </article>
+
+    <article class="day">
+      <div class="day-top">
+        <div class="date kbv"><span class="d">20</span><span class="w">1월 · 수</span></div>
+        <div class="day-title"><h3>피피섬 투어</h3><span class="sub">끄라비 대표 투어, 하루 종일</span></div>
+      </div>
+      <ul class="tl">
+        <li><span class="t">07:30</span><span class="x">리조트 픽업<span class="note">텁깩은 픽업 추가 요금이 붙는 투어가 있어요. 예약할 때 꼭 확인하세요.</span></span></li>
+        <li class="hl"><span class="t">08:30</span><span class="x">피피섬 + 마야베이 스피드보트 투어<span class="note">마야베이, 피레 라군, 바이킹 동굴, 몽키 비치, 대나무섬 등에서 스노클링. 점심 포함.</span></span></li>
+        <li><span class="t">17:00</span><span class="x">리조트 도착, 스파나 마사지로 피로 풀기</span></li>
+        <li><span class="t">저녁</span><span class="x">리조트에서 여유 있게 저녁</span></li>
+      </ul>
+      <p class="sleep">숙소 <b>The Tubkaak Krabi Boutique Resort</b> (2박째)</p>
+    </article>
+
+    <article class="day">
+      <div class="day-top">
+        <div class="date kbv"><span class="d">21</span><span class="w">1월 · 목</span></div>
+        <div class="day-title"><h3>아오낭 이동 + 선셋 투어</h3><span class="sub">오전은 느긋하게, 오후에 섬 투어</span></div>
+      </div>
+      <ul class="tl">
+        <li><span class="t">오전</span><span class="x">늦잠, 조식, 마지막 리조트 수영</span></li>
+        <li><span class="t">12:00</span><span class="x">텁깩 체크아웃 → 아오낭 Eco Inn Cottage로 이동, 차로 약 30분<span class="note">체크인 전이면 짐만 맡겨두세요.</span></span></li>
+        <li class="hl"><span class="t">13:30</span><span class="x">7섬 선셋 + 야광 플랑크톤 투어<span class="note">포다섬, 치킨섬, 텁섬 등 4섬 투어 코스에 노을과 밤 스노클링이 더해져요. 해변 BBQ 저녁 포함.</span></span></li>
+        <li><span class="t">20:30</span><span class="x">숙소 도착, 체크인</span></li>
+      </ul>
+      <p class="sleep">숙소 <b>Eco Inn Cottage by Aonang Hill</b></p>
+    </article>
+
+    <article class="day">
+      <div class="day-top">
+        <div class="date bkk"><span class="d">22</span><span class="w">1월 · 금</span></div>
+        <div class="day-title"><h3>라일레이 → 방콕</h3><span class="sub">저녁 비행기라 낮에 라일레이를 다녀올 수 있어요</span></div>
+      </div>
+      <ul class="tl">
+        <li><span class="t">08:30</span><span class="x">조식, 체크아웃하고 짐은 숙소에 맡기기</span></li>
+        <li class="hl"><span class="t">09:30</span><span class="x">라일레이 반나절<span class="note">아오낭 해변에서 롱테일보트로 약 15분. 프라낭 동굴 해변에서 수영하고, 라일레이 웨스트에서 점심.</span></span></li>
+        <li><span class="t">15:00</span><span class="x">아오낭으로 돌아와 마사지 받고 샤워하기<span class="note">해변 앞 마사지 숍이 많아요. 비행기 타기 전에 개운하게.</span></span></li>
+        <li><span class="t">17:15</span><span class="x">숙소에서 짐 찾기 → 끄라비 공항, 차로 약 30~40분</span></li>
+        <li><span class="t">19:45</span><span class="x">끄라비 출발 (타이 에어아시아 FD3228) → 21:10 돈므앙 도착</span></li>
+        <li><span class="t">22:30</span><span class="x">방콕 숙소 체크인, 쉬기</span></li>
+      </ul>
+      <p class="sleep">숙소 <b>방콕 숙소 (예약 전)</b> (1박째)</p>
+    </article>
+
+    <article class="day">
+      <div class="day-top">
+        <div class="date bkk"><span class="d">23</span><span class="w">1월 · 토</span></div>
+        <div class="day-title"><h3>방콕 시내 하루</h3><span class="sub">사원 → 강변 → 디너크루즈나 루프탑</span></div>
+      </div>
+      <ul class="tl">
+        <li><span class="t">08:30</span><span class="x">왕궁<span class="note">어깨와 무릎을 가리는 옷을 입어야 들어갈 수 있어요. 오후 3시 반쯤 입장이 끝나요.</span></span></li>
+        <li><span class="t">11:00</span><span class="x">왓포에서 와불 보고 타이 마사지 받기</span></li>
+        <li><span class="t">12:30</span><span class="x">배로 강 건너 왓아룬, 근처 강변 카페에서 점심</span></li>
+        <li><span class="t">15:00</span><span class="x">아이콘시암 구경, 숙소에서 쉬기</span></li>
+        <li><span class="t">19:00</span><span class="x">짜오프라야강 디너크루즈나 루프탑 바<span class="note">쩟페어 야시장도 저녁에 가기 좋아요.</span></span></li>
+      </ul>
+      <p class="sleep">숙소 <b>방콕 숙소 (예약 전)</b> (2박째)</p>
+    </article>
+
+    <article class="day">
+      <div class="day-top">
+        <div class="date bkk"><span class="d">24</span><span class="w">1월 · 일</span></div>
+        <div class="day-title"><h3>주말시장 → 출국</h3><span class="sub">밤 비행기라 하루를 꽉 채워 쓸 수 있어요</span></div>
+      </div>
+      <ul class="tl">
+        <li><span class="t">09:00</span><span class="x">짜뚜짝 주말시장 (토·일만, 아침이 덜 더워요)<span class="note">숙소 체크아웃 전에 다녀오거나, 체크아웃하고 짐을 맡긴 뒤 가세요.</span></span></li>
+        <li><span class="t">12:00</span><span class="x">체크아웃, 짐은 호텔에 맡기기</span></li>
+        <li><span class="t">13:00</span><span class="x">점심 → 시암이나 통로에서 쇼핑과 카페</span></li>
+        <li><span class="t">17:00</span><span class="x">마사지나 스파에서 샤워까지 하고 개운하게<span class="note">밤 비행기 전에 씻을 곳이 필요해요. 샤워 시설 있는 스파를 고르세요.</span></span></li>
+        <li><span class="t">19:00</span><span class="x">호텔에서 짐 찾기 → 수완나품 공항, 공항철도나 택시로 약 40~60분</span></li>
+        <li><span class="t">19:50</span><span class="x">공항 도착, 체크인</span></li>
+        <li><span class="t">22:50</span><span class="x">수완나품 출발 (에어부산 BX546) → 1/25 (월) 06:20 김해 도착</span></li>
+      </ul>
+    </article>
+
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>끄라비 투어</h2><p>일정에 넣은 두 개가 끄라비에서 꼭 해야 할 투어예요. 나머지는 대안이나 다음 기회용이에요.</p></div>
+  <div class="tours">
+    <div class="tourc must">
+      <div class="row"><h3>피피섬 + 마야베이</h3><span class="tag-plan">1/20 일정</span></div>
+      <p>영화 촬영지로 유명한 마야베이와 에메랄드빛 피레 라군. 끄라비 투어 중 가장 유명해요.</p>
+      <div class="facts"><span>스피드보트 · 하루 종일 (약 8~9시간)</span><span>약 5.4만 원 / 1인 · 국립공원 입장료 별도</span><span>마야베이는 수영 금지, 해변 산책만 가능</span></div>
+    </div>
+    <div class="tourc must">
+      <div class="row"><h3>7섬 선셋 + 야광 플랑크톤</h3><span class="tag-plan">1/21 일정</span></div>
+      <p>4섬 투어 코스에 바다 노을과 밤바다의 야광 플랑크톤이 더해져요. 부부 여행에 특히 좋아요.</p>
+      <div class="facts"><span>롱테일 또는 스피드보트 · 오후~밤 (약 6~7시간)</span><span>약 4.8만 원 / 1인 · BBQ 저녁 포함</span></div>
+    </div>
+    <div class="tourc">
+      <div class="row"><h3>홍섬 투어</h3><span class="tag-opt">대안</span></div>
+      <p>절벽으로 둘러싸인 라군에서 카약을 타요. 텁깩에서 가까워서 피피섬보다 이동이 짧아요.</p>
+      <div class="facts"><span>반나절~하루 · 약 3.5만 원 / 1인</span></div>
+    </div>
+    <div class="tourc">
+      <div class="row"><h3>4섬 투어</h3><span class="tag-opt">대안</span></div>
+      <p>프라낭 동굴 해변, 치킨섬, 텁섬, 포다섬. 7섬 선셋 투어와 코스가 겹쳐서 둘 중 하나만 하면 돼요.</p>
+      <div class="facts"><span>반나절~하루 · 약 2.7만 원 / 1인</span></div>
+    </div>
+    <div class="tourc">
+      <div class="row"><h3>라일레이 반나절</h3><span class="tag-plan">1/22 일정</span></div>
+      <p>차가 다니지 않는 절벽 속 해변이에요. 아오낭 해변에서 롱테일보트를 타고 직접 가면 돼요.</p>
+      <div class="facts"><span>투어 예약 없이 가능 · 보트 왕복 1인 수백 바트</span></div>
+    </div>
+    <div class="tourc">
+      <div class="row"><h3>정글 투어</h3><span class="tag-opt">다음 기회</span></div>
+      <p>에메랄드 풀, 온천, 타이거 케이브 사원(계단 1,200여 개). 이번 일정에는 시간이 부족해요.</p>
+      <div class="facts"><span>하루 종일</span></div>
+    </div>
+  </div>
+  <p class="src">투어 가격은 2026년 11월 아고다 액티비티에 표시된 1인 요금이에요. 업체와 시기에 따라 달라지고, 국립공원 입장료는 보통 현장에서 현금으로 내요.</p>
+</section>
+
+<section>
+  <div class="sec-head"><h2>예약 체크리스트</h2><p>체크한 항목은 이 기기에만 저장돼요.</p></div>
+  <div class="list" id="checklist">
+    <label class="check"><input type="checkbox" id="c-bag"><span>에어아시아 위탁 수하물 포함 여부 확인 (없으면 미리 추가하는 게 싸요)</span></label>
+    <label class="check"><input type="checkbox" id="c-dawn"><span>1/19 새벽 5시 반 공항 이동편 (호텔 셔틀이나 택시)</span></label>
+    <label class="check"><input type="checkbox" id="c-early"><span>텁깩 리조트에 얼리 체크인 요청</span></label>
+    <label class="check"><input type="checkbox" id="c-hotel-bkk"><span>1/22~24 방콕 숙소 예약 (수쿰윗 추천)</span></label>
+    <label class="check"><input type="checkbox" id="c-tour-phiphi"><span>1/20 피피섬 투어 예약 (텁깩 픽업 가능한지 확인)</span></label>
+    <label class="check"><input type="checkbox" id="c-tour-sunset"><span>1/21 7섬 선셋 투어 예약 (아오낭 숙소 픽업으로)</span></label>
+    <label class="check"><input type="checkbox" id="c-transfer"><span>끄라비 공항 → 텁깩 리조트 이동편</span></label>
+    <label class="check"><input type="checkbox" id="c-cash"><span>바트 현금 준비 (국립공원 입장료, 롱테일보트)</span></label>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>챙기면 좋은 것</h2></div>
+  <ul class="tips">
+    <li>스피드보트는 많이 흔들려요. 멀미약을 투어 30분 전에 먹으세요.</li>
+    <li>방수 파우치, 아쿠아슈즈, 래시가드, 산호에 안전한 선크림</li>
+    <li>왕궁과 사원에 갈 날은 긴 바지나 긴 치마</li>
+    <li>그랩(Grab) 앱 설치. 끄라비와 방콕 모두 이동이 편해요.</li>
+    <li>태국 eSIM이나 유심</li>
+  </ul>
+</section>
+
+<footer>숙소 위치와 투어 정보는 2026년 11월에 확인했어요. 투어 일정과 마야베이 입장 규정은 바뀔 수 있으니 예약할 때 다시 확인하세요.</footer>
+
+</div>
+
+<script>
+(function(){
+  var KEY='bkk-krabi-checklist';
+  var saved={};
+  try{ saved=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ saved={}; }
+  var boxes=document.querySelectorAll('#checklist input[type="checkbox"]');
+  boxes.forEach(function(b){
+    if(saved[b.id]) b.checked=true;
+    b.addEventListener('change',function(){
+      saved[b.id]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(saved)); }catch(e){}
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
